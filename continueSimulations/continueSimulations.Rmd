@@ -1,0 +1,139 @@
+---
+title: 'Finale des simulacres et simulations'
+author: "Bryce Carson"
+output:
+  html_document:
+    toc: no
+    highlight: pygments
+    theme: journal
+editor_options:
+  chunk_output_type: inline
+---
+
+# Pseudocode
+1. Infer the name of the saveStates and find the last two for each simulation that needs to be completed.
+2. Find the location of the indFitness.txt file as well, and relocate it to be alongside the out_Muts.txt files in the `~/scratch/Output/unfinishedOutput/` directory.
+3. Build a command-line that will call `slim` with all of the necessary `-d[efine]` arguments to resume the simulation. This includes:
+   1. a `-d` for each parameter key-value pair (e.g. `-d R=1e-07`).
+   2. a `-d slurmSimulationStateFile=FILE` argument, where FILE is the second-last save state file.
+   3. a `-s seed` argument to restore the exact pseudo-random trajectory of the simulation.
+   4. a `-d outputMutationsFile=FILE` argument.
+   5. a `-d outputIndFitnessFile=FILE` argument.
+
+   NOTE: this step requires modifying the SLiM model to include a condition that will set the path for the two calls of `writeFile()` and the call of `outputFull()` to the paths specified on the command-line.
+
+4. Create a backup of the files that will be worked on, just in case of a progammer error. "Only human."
+5. Delete the last (most recent) save state file, and trim that generation's output from the indFitness and out_Muts output files.
+6. Call asynchronous processes for each command-line built and finish the simulations.
+
+# An R implementation
+```{r}
+options("scipen" = 20)
+library(tidyverse)
+library(fs)
+library(data.table)
+library(stringr)
+library(doParallel)
+
+registerDoParallel(cores=detectCores() - 1)
+print(paste0("An R parallel 'cluster' has been registered with ", ncores, " cores."))
+getDoParWorkers()
+
+## NOTE: this data took a long time to create manually, and unfortunately I have misplaced the exact code I used to create it, so it is not reproduced here.
+load("~/organizeOutput.RData")
+
+filenamesAndParameters <- filesToComplete %>% as_tibble() %>%
+  separate(sep = "_", col = value, remove = FALSE,
+           into = c(NA, "intraR", "interR", "muAP", "N", "m", "phi",
+                    "sCD", "muCD", "sAP", NA, "RUN_id", NA, NA)) %>%
+  map_at(.at = c("intraR", "interR", "muAP", "N", "m", "phi",
+                 "sCD", "muCD", "sAP"),
+         str_extract, pattern = "[^[[:alpha:]]=](.*)$") %>%
+  map_at("sAP", str_split, pattern = "00.") %>%
+  map_at("sAP", map, first) %>%
+  map_at("sAP", as_vector) %>%
+    as_tibble() %>%
+    mutate(outputMutationsFilename = map_chr(value, .f = ~ system(intern = TRUE,
+                                                              paste("find",
+                                                                    "~/scratch/Output/",
+                                                                    "-not -wholename '*corrupt*'",
+                                                                    "-name",
+                                                                    .))),
+           outputIndFitnessFilename = map_chr(value, .f = ~ system(intern = TRUE,
+                                                               paste("find",
+                                                                     "~/scratch/Output/",
+                                                                     "-not -wholename '*corrupt*'",
+                                                                     "-name",
+                                                                     str_replace(.,
+                                                                                 pattern = "out_Muts.txt",
+                                                                                 replacement = "out_indFitness.txt")))),
+           value = NULL,
+           saveStateFilename = map(outputMutationsFilename, .f = ~ system(intern = TRUE,
+                                                                          paste("find",
+                                                                                "~/scratch/Output/",
+                                                                                "-not -wholename '*corrupt*'",
+                                                                                "-name",
+                                                                                str_replace(basename(.),
+                                                                                            replacement = "outputFull_Generation=*.txt",
+                                                                                            pattern = "out_Muts.txt"))) %>%
+                                                                sort() %>%
+                                                                last(n = 2)),
+           generationToDelete = map_dbl(.x = saveStateFilename, .f = ~ last(.) %>% str_extract(pattern = "[123][[:digit:]][0,5][0]{3}") %>%
+                                                                    as.numeric()))
+
+commandLines <- filenamesAndParameters %>% str_glue_data(.sep = " ",
+                                         "slim -m -l",
+                                         "-d R={intraR}",
+                                         "-d r={interR}",
+                                         "-d N={N}",
+                                         "-d m={m}",
+                                         "-d phi={phi}",
+                                         "-d sCD={sCD}",
+                                         "-d sAP=c({sAP}, 0, {abs(as.numeric(sAP))})",
+                                         "-d muAP={muAP}",
+                                         "-d muCD={muCD}",
+                                         "-d REP=0",
+                                         "-s {RUN_id}",
+                                         "-d slurmSimulationStatefile={map_chr(.x = saveStateFilename, .f = ~ first(.))}",
+                                         "-d outputMutationsFile={outputMutationsFilename}",
+                                         "-d outputIndFitnessFile={outputIndFitnessFilename}",
+                                         "-d outputEveryNGenerations=5000")
+
+## NOTE: be cautious and do not run the real code here until the test below has been confirmed.
+## NOTE: create a backup, just in case.
+map(.x = filenamesAndParameters$outputMutationsFilename, .f = ~ file_copy(path = .x, new_path = "~/scratch/backupSimulations-2021-10-04"))
+map(.x = filenamesAndParameters$outputIndFitnessFilename, .f = ~ file_copy(path = .x, new_path = "~/scratch/backupSimulations-2021-10-04"))
+map(.x = filenamesAndParameters$saveStateFilename, .f = ~ file_copy(path = .x, new_path = "~/scratch/backupSimulations-2021-10-04"))
+
+## TODO: check that the commands would refer to the proper files with `print()`.
+map(.x = filenamesAndParameters, .f = ~ print(paste0("sed -i '/", .x$generationToDelete, "$/d' ", .x$outputMutationsFilename)))
+map(.x = filenamesAndParameters, .f = ~ print(paste0("sed -i '/", .x$generationToDelete, "$/d' ", .x$outputIndFitnnessFilename)))
+map(.x = filenamesAndParameters, .f = ~ print(map(.x = .x$saveStateFilename, 2)))
+## NOTE: perform the dirty work.
+## map(.x = filenamesAndParameters$outputMutationsFilename, .f = ~ system(command = paste0("sed -i '/", generationToDelete, "$/d' ", .)))
+## map(.x = filenamesAndParameters$outputIndFitnessFilename, .f = ~ system(command = paste0("sed -i '/", generationToDelete, "$/d' ", .)))
+## map(.x = filenamesAndParameters$saveStateFilename, .f = ~ file_delete(last(.)))
+
+## TODO: using asynchronous, parallel workers run all of the `commandlines` and capture the success of each. this may take some time.
+## NOTE: this is an example of how i use `foreach() %dopar% {}` to do parallel, asynchronous work. it is taken from `meecarsonyeaman2021.r`.
+## heatmapstable <- foreach(file = filenamesnotalreadypresent) %dopar% {
+##     heatmap <- tibble(heatmaplist = list(serialize(dowork(readfile(file)), connection = null)), filenamedigest = digest(file, serialize = false))
+## } %>%
+##     bind_rows()
+
+## NOTE: the object below should be a logical vector.
+## successfullyFinishedSimulations <- foreach(commandLine = commandLines) %dopar% {
+##     system(command = commandLine)
+## }
+## TODO: if all was successful, move the output files out of the unfinishedoutput subdirectory and into the mass output folder.
+```
+
+## Hackery stuff
+TODO: if all of the work in the previous chunk was successful, display a nice image that indicates success, otherwise a big fat sad computer face.
+```{r}
+if(all(successfullyFinishedSimulations) == TRUE) {
+    ## Display an image in the Rmd document
+} else {
+    ## Display an image in the Rmd document
+}
+```
