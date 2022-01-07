@@ -1,0 +1,252 @@
+initialize() {
+  defineConstant("PREFIX", "APCD10Cr");
+
+  if (exists("outputEveryNGenerations") == F) {
+    stop(message = "The interval for generating output and save states, outputEveryNGenerations, is undefined.");
+  }
+
+  /* Unless all of the command-line arguments for continuing from existing
+     simulations exist, specify the defaults and ensure they exist. */
+  if(all(exists(c("outputMutationsFile", "outputIndFitnessFile", "saveStateDirectory"))) == F) {
+    defineConstant("pathOUT", "/home/bcars268/scratch/Output/");
+    defineConstant("useDefaultPath", "TRUE");
+
+    if(N == 1000) {
+      defineConstant("populationSizeWord", "OneThousand");
+    } else if(N == 10000) {
+      defineConstant("populationSizeWord", "TenThousand");
+    }
+
+    defineConstant("outputDataDirectory", paste(c("n", populationSizeWord, "OutputData/"), sep = ""));
+    defineConstant("saveStateDirectory", paste(c("n", populationSizeWord, "saveStates/"), sep = ""));
+
+    // Check if the directories exist, if not create them.
+    if(fileExists(paste(c(pathOUT, outputDataDirectory), sep = "")) == "FALSE") {
+      createDirectory(paste(c(pathOUT, outputDataDirectory), sep = ""));
+    }
+    if(fileExists(paste(c(pathOUT, saveStateDirectory), sep = "")) == "FALSE") {
+      createDirectory(paste(c(pathOUT, saveStateDirectory), sep = ""));
+    }
+  } else {
+    /* Here, the command-line arguments have all been specified. We need to
+       check if the saveStateDirectory has a trailing path seperator, so that we
+       properly construct the `filePath` argument in `outputFull()` during each
+       output process. */
+    if(strsuffix(saveStateDirectory, "/") == T) {} else {
+      tmpSaveStateDirectory = paste(c(saveStateDirectory, "/"), sep = "");
+      rm("saveStateDirectory", removeConstants = T);
+      defineConstant("saveStateDirectory", tmpSaveStateDirectory);
+    }
+  }
+
+  if(exists("sAPValue")) {
+    defineConstant("sAP", c(-(abs(sAPValue)), 0, abs(sAPValue)));
+  } else {
+    if(exists("sAP")) {} else {
+      stop(message = "Neither sAP nor sAPValue exist. The simulation cannot run."); }
+  }
+
+  if(all(exists(c("muAP", "muCD"))) == F) {
+  	stop(message = "Somehow, muAP and muCD are not defined.");
+  }
+
+  //initializeTreeSeq(simplificationInterval = 10);
+  defineConstant("G", 20*N); //Generations to run the simulation for.
+  defineConstant("Y", 1); //Gene Density Controller
+  defineConstant("simID", getSeed());
+  defineConstant("D", 2); //Number of demes
+  //defineConstant("alpha", sAP); //Phenotypic effect sizes of QTLs
+  //Define terms for the AP fitness function to improve readability.
+  defineConstant("gamma", 2); //Curvature
+  defineConstant("theta1", -1.0); //Phenotypic optimum one
+  defineConstant("theta2", 1.0); //Phenotypic optimum two
+
+  //Setup the parameters of the simulations.
+  initializeMutationType("m2", 0.5, "e", sCD); //CD12 mutation, neutral in p1
+  initializeMutationType("m3", 0.5, "e", sCD); //CD21 mutation, neutral in p2
+  initializeMutationType("m4", 0.5, "s", "sample(sAP, 1, T);"); //Sample sAP for a biallelic system.
+  m2.mutationStackPolicy = "l"; //Allows new mutation to replace a previously existing
+  m2.convertToSubstitution = F; //Maintains the deleterious effect after fixation (avoid substitution)
+  m3.mutationStackPolicy = "l";
+  m3.convertToSubstitution = F;
+  m4.mutationStackPolicy = "l";
+  m4.convertToSubstitution = F;
+  c(m2,m3).mutationStackGroup = 1;
+  m4.mutationStackGroup = 1;
+
+  //If working with SLiMgui lets use some colors to visually identify the mutation types:
+  m2.color = "red";
+  m3.color = "red";
+  m4.color = "green";
+
+  //Define the genomic parts:
+  initializeGenomicElementType("g1", c(m2,m3), c(0.5,0.5)); //CN Genes.
+  initializeGenomicElementType("g2", m4, 1); //QTL with AP
+  g1.color = "white";
+  g2.color = "black";
+
+  //Conditionally Neutral Genes
+  for (GeneNumber in seq(1,1000)[asLogical(integer(1000,fill1=1,fill2=0,fill2Indices=seq(49,949,length=10)))]) {
+    START = (GeneNumber-1)*(1000+Y) + 0;
+    END = (GeneNumber - 1)*(1000+Y) + 999;
+    initializeGenomicElement(g1, START, END); }
+
+  //QTLs with Antagonistic Pleiotropy
+  //Gene Numbers for AP-containing Genes
+  GeneNumber = seq(50,950,length=10);
+
+  //Start Positions
+  S1 = (GeneNumber - 1)*(1000+Y) + 0;
+  S2 = (GeneNumber - 1)*(1000+Y) + 499; //AP SNP
+  S3 = (GeneNumber - 1)*(1000+Y) + 500;
+  apSTARTS = sort(c(S1,S2,S3));
+
+  //End Positions
+  E1 = (GeneNumber - 1)*(1000+Y) + 498;
+  E2 = (GeneNumber - 1)*(1000+Y) + 499; //AP SNP
+  E3 = (GeneNumber - 1)*(1000+Y) + 999;
+  apENDS = sort(c(E1,E2,E3));
+
+  //Initialize AP Genes
+  initializeGenomicElement(rep(c(g1,g2,g1),10), apSTARTS, apENDS);
+
+  //Mutation Rate Map
+  initializeMutationRate(c(rep(c(muCD,muAP),10),muCD), sort(c(E1,E2,(999)*(1000+Y) + 999)));
+  //Define Chromosomes by setting R = 0.5 at specific positions.
+  //Get all end positions of 'real' genes.
+  CD_END = NULL;
+  //Get CD end positions from same code defining genomic elements.
+  for (GeneNumber in seq(1,1000)[asLogical(integer(1000,fill1=1,fill2=0,fill2Indices=seq(49,949,length=10)))]) {
+    CD_END = c(CD_END,((GeneNumber - 1)*(1000+Y) + 999));
+  }
+  //Get AP end positions from same code defining genomic elements.
+  GeneNumber = seq(50,950,length=10);
+  AP_END = ((GeneNumber - 1)*(1000+Y) + 999);
+  GENE_ENDS = sort(c(CD_END, AP_END)); //A vector of 1000 if correct.
+  //Get all positions of the Y bps.
+  Y_BP_POSITIONS = GENE_ENDS + 1;
+  Y_BP_POSITIONS = Y_BP_POSITIONS[seq(0,999)[asLogical(integer(1000,fill1=1,fill2=0,fill2Indices=seq(99,999,by=100)))]];
+  BREAKPOINT_POSITIONS = GENE_ENDS + 1;
+  BREAKPOINT_POSITIONS = BREAKPOINT_POSITIONS[seq(0,999)[asLogical(integer(1000,fill1=0,fill2=1,fill2Indices=seq(99,899,by=100)))]];
+
+  ENDS = sort(c(GENE_ENDS, Y_BP_POSITIONS, BREAKPOINT_POSITIONS));
+
+  //Set three rates (R,r,0.5) appropriately.
+  RATES = rep(c(rep(c(R,r),99),R,0.5),10); //Probably subset and remove last index.
+
+  RATES = RATES[seq(0,1999)[asLogical(integer(2000, fill1=1, fill2=0, fill2Indices=1999))]];
+  initializeRecombinationRate(RATES,ENDS);
+} //End of initialization
+
+s1 1 late() {
+  // Load Simulation State if the continue Constant is defined
+  if (exists("saveStateFilename")) {
+    sim.readFromPopulationFile(saveStateFilename);
+
+    // Schedule Events Properly
+    p2.setMigrationRates(p1,m);
+    p1.setMigrationRates(p2,m);
+
+    sim.rescheduleScriptBlock(s3, start=(sim.generation + 1), end=350000); //Begin sampling output every 5000 generations from generation 100,000 onwards.
+
+    // Prevent the rest of the s1 script block from running if we are loading a simulation state file.
+    return;
+  }
+
+  // Population and burn-in migration setup.
+  subpopCount = D;
+  for (i in 1:subpopCount)
+    sim.addSubpop(i, N);
+  for (i in 1:subpopCount)
+    for (j in 1:subpopCount)
+      if (i != j)
+        sim.subpopulations[i-1].setMigrationRates(j, 0.5); //Burn-in with migration of 0.5 for first 10N generations.
+
+
+  //Schedule Events Properly
+  sim.rescheduleScriptBlock(s2, start=100000, end=100000); //Reduce the migraiton rate in generation 100,000.
+  sim.rescheduleScriptBlock(s3, start=100000, end=350000); //Begin sampling output every 5000 generations from generation 100,000 onwards.
+} //End of Migration setup
+
+//Reduce the migration rate to m after the burn in period (100,000 generations).
+s2 100000 late() {
+  p2.setMigrationRates(p1,m);
+  p1.setMigrationRates(p2,m);
+}
+
+fitness(m2, p1) { return 1.0; } //CD12
+fitness(m3, p2) { return 1.0; } //CD21
+fitness(m4) { return 1.0; }
+fitness(NULL) {
+  zAP = individual.sumOfMutationsOfType(m4);
+  if (subpop == p1)
+    return 1 - phi*(((theta1 - zAP)/2*theta1)^gamma);
+  else
+    return 1 - phi*(((theta2 - zAP)/2*theta2)^gamma);
+}
+
+s3 100000 {
+  //Only sample output when the current generation is a multiple of 5000, id est sample every 5000 generations from and including generation 100000, when this block will begin running.
+  if (sim.generation % outputEveryNGenerations != 0)
+    return;
+
+  // The variables defined here and the original output code was written by Clement.
+  //Getting individuals information
+  ind1 = p1.individuals;
+  ind2 = p2.individuals;
+  indexID1 = ind1.index;
+  indexID2 = ind2.index;
+  p1_fit = p1.cachedFitness(NULL);
+  p2_fit = p2.cachedFitness(NULL);
+  lm2p1 = p1.individuals.countOfMutationsOfType(m2);
+  lm3p1 = p1.individuals.countOfMutationsOfType(m3);
+  lm4p1 = p1.individuals.countOfMutationsOfType(m4);
+  lm2p2 = p2.individuals.countOfMutationsOfType(m2);
+  lm3p2 = p2.individuals.countOfMutationsOfType(m3);
+  lm4p2 = p2.individuals.countOfMutationsOfType(m4);
+
+  out_ID = "RUN_id " + "replicate " + "pop " + "id " + "migrant " + "fitness " + "n_m2 " + "n_m3 " + "n_m4 " + "outputGen";
+  out_IDs1 = simID + " " + REP + " p1 " + indexID1 + " " + ind1.migrant + " " + p1_fit + " " + lm2p1 + " " + lm3p1 + " " + lm4p1 + " " + sim.generation;
+  out_IDs2 = simID + " " + REP + " p2 " + indexID2 + " " + ind2.migrant + " " + p2_fit + " " + lm2p2 + " " + lm3p2 + " " + lm4p2 + " " + sim.generation;
+
+  //Getting genomes information
+  g = sim.subpopulations.genomes;
+  CD12 = sortBy(unique(c(g.mutationsOfType(m2))), "position");
+  CD21 = sortBy(unique(c(g.mutationsOfType(m3))), "position");
+  AP = sortBy(unique(c(g.mutationsOfType(m4))), "position");
+  CD12p1_freq = sim.mutationFrequencies(p1, CD12);
+  CD21p1_freq = sim.mutationFrequencies(p1, CD21);
+  APp1_freq = sim.mutationFrequencies(p1, AP);
+  CD12p2_freq = sim.mutationFrequencies(p2, CD12);
+  CD21p2_freq = sim.mutationFrequencies(p2, CD21);
+  APp2_freq = sim.mutationFrequencies(p2, AP);
+
+  out_CD12 = "RUN_id " + "replicate " + "population " + "type " + "descrip " + "position " + "originGen " + "originPop " + "selCoef " + "freq " + "outputGen";
+  out_CD12p1 = simID + " " + REP + " p1 " + "m2 " + "CD " + CD12.position + " " + CD12.originGeneration + " " + CD12.subpopID + " " + CD12.selectionCoeff + " " + CD12p1_freq + " " + sim.generation;
+  out_CD21p1 = simID + " " + REP + " p1 " + "m3 " + "CD " + CD21.position + " " + CD21.originGeneration + " " + CD21.subpopID + " " + CD21.selectionCoeff + " " + CD21p1_freq + " " + sim.generation;
+  out_APp1 = simID + " " + REP + " p1 " + "m4 " + "AP " + AP.position + " " + AP.originGeneration + " " + AP.subpopID + " " + AP.selectionCoeff + " " + APp1_freq + " " + sim.generation;
+
+  out_CD12p2 = simID + " " + REP + " p2 " + "m2 " + "CD " + CD12.position + " " + CD12.originGeneration + " " + CD12.subpopID + " " + CD12.selectionCoeff + " " + CD12p2_freq + " " + sim.generation;
+  out_CD21p2 = simID + " " + REP + " p2 " + "m3 " + "CD " + CD21.position + " " + CD21.originGeneration + " " + CD21.subpopID + " " + CD21.selectionCoeff + " " + CD21p2_freq + " " + sim.generation;
+  out_APp2 = simID + " " + REP + " p2 " + "m4 " + "AP " + AP.position + " " + AP.originGeneration + " " + AP.subpopID + " " + AP.selectionCoeff + " " + APp2_freq + " " + sim.generation;
+
+  //Save the simulation state at this point of the simulation and append outputs.
+  if(exists("useDefaultPath") == T) {
+    sim.outputFull(filePath = paste(c(pathOUT, saveStateDirectory, PREFIX, "_R=", R, "_r=", r, "_muAP=", muAP, "_N=", N, "_m=", m, "_phi=", phi, "_sCD=", sCD, "_muCD=", muCD, "_sAP=", sAP, "_Replicate=", REP, "_", simID, "_outputFull_Generation=", sim.generation, ".txt"), sep=""));
+    writeFile(filePath = paste(c(pathOUT, outputDataDirectory, PREFIX, "_R=", R, "_r=", r, "_muAP=", muAP, "_N=", N, "_m=", m, "_phi=", phi, "_sCD=", sCD, "_muCD=", muCD, "_sAP=", sAP, "_Replicate=", REP, "_", simID, "_out_indFitness.txt"), sep=""), contents = c(out_ID, out_IDs1, out_IDs2), append=T);
+    writeFile(filePath = paste(c(pathOUT, outputDataDirectory, PREFIX, "_R=", R, "_r=", r, "_muAP=", muAP, "_N=", N, "_m=", m, "_phi=", phi, "_sCD=", sCD, "_muCD=", muCD, "_sAP=", sAP, "_Replicate=", REP, "_", simID, "_out_Muts.txt"), sep=""), contents = c(out_CD12, out_CD12p1, out_CD21p1, out_APp1, out_CD12p2, out_CD21p2, out_APp2), append=T);
+  } else {
+    /* When the filepaths are specified on the command-line, the dirname of the
+     filepath for outputFull is used, so that `sim.generation` is still called
+     and new saveStates generated. The absolute filepath for the specified
+     output files is used in the respective calls of writeFile so that we
+     properly append output to the files and don't accidentally create new
+     files, just in case SLiM/Eidos interprets the numerical parameters slightly
+     differently: as an example, on the command-line `-d sAP=c(-0.5,0,0.5)` is
+     written in writeFile as `sAP=-0.500.5`. saveStateFilename is here
+     just the dirname of the file, not the whole filepath.*/
+    sim.outputFull(filePath = paste(c(saveStateDirectory, PREFIX, "_R=", R, "_r=", r, "_muAP=", muAP, "_N=", N, "_m=", m, "_phi=", phi, "_sCD=", sCD, "_muCD=", muCD, "_sAP=", sAP, "_Replicate=", REP, "_", simID, "_outputFull_Generation=", sim.generation, ".txt"), sep=""));
+    writeFile(filePath = outputIndFitnessFile, contents = c(out_ID, out_IDs1, out_IDs2), append=T);
+    writeFile(filePath = outputMutationsFile, contents = c(out_CD12, out_CD12p1, out_CD21p1, out_APp1, out_CD12p2, out_CD21p2, out_APp2), append=T);
+  }
+}
