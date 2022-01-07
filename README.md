@@ -64,6 +64,13 @@ The SLiM model outputs the entire model state for save files in the same event b
 #WARNING (SLiMSim::ExecuteMethod_outputFull): outputFull() should probably not be called from an early() event in a WF model; the output will reflect state at the beginning of the generation, not the end.
 ```
 
+The version of SLiM that was used to generate the output on Compute Canada clusters is given below.
+```html
+<pre><font color="#A2734C"><b>bcars268</b></font> in <font color="#196C46"><b>gra-login2</b></font> in <font color="#2AA1B3"><b>~/bin</b></font> 
+<font color="#26A269"><b>❯</b></font> slim -v
+SLiM version 3.3.2, built May  4 2020 19:43:23</pre>
+```
+
 ## Data Validation
 The mutation output files for every simulation included in the SQLite database and usable with the Shiny application were validated using the `assertr` and Appsilon `data.validator` packages.
 
