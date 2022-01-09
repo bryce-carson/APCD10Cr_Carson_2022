@@ -21,10 +21,9 @@ The scripting for continuing simulations that failed due to memory or time const
 The first case takes fewer command-line arguments than the others, it simply `--define`s the parameters of the simulation (e.g. `R=1e-8`). The command-line is generated from a BASH script that depends on a SLURM environment variable, `$SLURM_ARRAY_JOB_ID`, which will control which parameter file is read by `xargs` and used to define the simulation parameters.
 
 As an example:
-```html
-<pre><font color="#444444">───────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</font>
+<pre><font color="#444444">───────┬─────────────────────────────────────────────────────────────────────────────────────────</font>
        <font color="#444444">│ </font>File: <b>jobScript.sh</b>
-<font color="#444444">───────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</font>
+<font color="#444444">───────┼─────────────────────────────────────────────────────────────────────────────────────────</font>
 <font color="#444444">   1</font>   <font color="#444444">│</font> <font color="#767676">#!/bin/bash</font>
 <font color="#444444">   2</font>   <font color="#444444">│</font> <font color="#767676">#SBATCH --array=1-6</font>
 <font color="#444444">   3</font>   <font color="#444444">│</font> <font color="#767676">#SBATCH --time=06-12:00:00</font>
@@ -36,16 +35,14 @@ As an example:
 <font color="#444444">   9</font>   <font color="#444444">│</font> <font color="#767676">#SBATCH --mail-user=bcars268@mtroyal.ca</font>
 <font color="#444444">  10</font>   <font color="#444444">│</font> <font color="#FFFFFF">slim</font><font color="#FF8700"> -m -l</font><font color="#FFFFFF"> `xargs</font><font color="#FF8700"> -a</font><font color="#FFFFFF"> params_${SLURM_ARRAY_TASK_ID}` APCD10Cr-2021-12-22.slim</font>
 <font color="#444444">  11</font>   <font color="#444444">│</font> <font color="#767676"># To have replicates, this job should merely be submitted ten times for ease.</font>
-<font color="#444444">───────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</font>
+<font color="#444444">───────┴─────────────────────────────────────────────────────────────────────────────────────────</font>
 
 </pre>
-```
 
 Parameters are generated from a tsv file with the following format:
-```html
-<pre><font color="#444444">───────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</font>
+<pre><font color="#444444">───────┬─────────────────────────────────────────────────────────────────────────────────────────</font>
        <font color="#444444">│ </font>File: <b>parameterSet-Missing-2021-12-18.txt</b>
-<font color="#444444">───────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</font>
+<font color="#444444">───────┼─────────────────────────────────────────────────────────────────────────────────────────</font>
 <font color="#444444">   1</font>   <font color="#444444">│</font> <font color="#FFFFFF">R   muAP    N   m   phi muCD    sAP r   sCD outputEveryNGenerations</font>
 <font color="#444444">   2</font>   <font color="#444444">│</font> <font color="#FFFFFF">1e-7    1e-4    10000   0.001   0.5 1e-8    c(-0.0625,0,0.0625) 0.000001    (-m)    5000</font>
 <font color="#444444">   3</font>   <font color="#444444">│</font> <font color="#FFFFFF">                        c(-0.0833,0,0.0833)</font>
@@ -53,10 +50,9 @@ Parameters are generated from a tsv file with the following format:
 <font color="#444444">   5</font>   <font color="#444444">│</font> <font color="#FFFFFF">                        c(-0.1666,0,0.1666)</font>
 <font color="#444444">   6</font>   <font color="#444444">│</font> <font color="#FFFFFF">                        c(-0.25,0,0.25)</font>
 <font color="#444444">   7</font>   <font color="#444444">│</font> <font color="#FFFFFF">                        c(-0.5,0,0.5)</font>
-<font color="#444444">───────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</font>
+<font color="#444444">───────┴─────────────────────────────────────────────────────────────────────────────────────────</font>
 
 </pre>
-```
 
 # ! WARNING
 The SLiM model outputs the entire model state for save files in the same event block as the custom output is generated. This was written mostly in 2019, and as such was not changed. The implication of output being at the beginning of a generation or the end was discussed and deemed not an important distinction when the frequency of output is every five thousand generations.
@@ -65,11 +61,9 @@ The SLiM model outputs the entire model state for save files in the same event b
 ```
 
 The version of SLiM that was used to generate the output on Compute Canada clusters is given below.
-```html
 <pre><font color="#A2734C"><b>bcars268</b></font> in <font color="#196C46"><b>gra-login2</b></font> in <font color="#2AA1B3"><b>~/bin</b></font> 
 <font color="#26A269"><b>❯</b></font> slim -v
 SLiM version 3.3.2, built May  4 2020 19:43:23</pre>
-```
 
 ## Data Validation
 The mutation output files for every simulation included in the SQLite database and usable with the Shiny application were validated using the `assertr` and Appsilon `data.validator` packages.
