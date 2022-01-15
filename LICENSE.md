@@ -1,22 +1,6 @@
 
-The MIT License (MIT)
+Refer to `COPYING.txt` for the full text of the license that applies to all the software source files and related text files included in this software distribution.
 
-Copyright (c) 2022 Bryce Carson
+The `renv.lock` files are computer generated JSON formatted files describing the R packages used in the R source files; they are not under the license mentioned in the previous paragraph. See Ushey K (2022) for more information on that software package. The license text for the renv software is available at <https://rstudio.github.io/renv/LICENSE-text.html>.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+	Ushey K (2022). renv: Project Environments. R package version 0.15.1, https://rstudio.github.io/renv/.

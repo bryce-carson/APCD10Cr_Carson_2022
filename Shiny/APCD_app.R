@@ -1,3 +1,13 @@
+# Copyright 2022 Bryce Carson
+# Author: Bryce Carson <bcars268@mtroyal.ca>
+# URL: https://github.com/bryce-carson/Carson2022
+#
+# APCD_app.R is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# APCD_app.R is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+
 library(ComplexHeatmap)
 library(DBI)
 library(DT)
@@ -6,11 +16,13 @@ library(circlize)
 library(shiny)
 library(shinyWidgets)
 library(tidyverse)
+library(glue)
+library(waiter)
 
 options(shiny.reactlog = TRUE)
 ht_opt$message <- FALSE
 
-db <- dbConnect(RSQLite::SQLite(), "/run/media/brycecarson/Data/APCD/MeeCarsonYeaman2021-12-28T21:54.db")
+db <- dbConnect(RSQLite::SQLite(), "MeeCarsonYeaman2021-12-28T21:54.db")
 metadata <- dbReadTable(db, "metadata")
 # DataTable cannot render blob objects, so we need to ensure that we deselect
 # them before rendering.
@@ -32,7 +44,7 @@ makeAComplexHeatmap <- function(matrix, windowSize = 1) {
       }
     )))
   )
-  aprange <- c(-0.5, 0, 0.5)
+  aprange <- c(-0.025, 0, 0.025)
   breaks <- sort(c(aprange, (max(aprange) + offset), 1, max(cdrange)))
   colors <- c("Purple", "White", "Orange", "White", "White", "Black")
   matrixColours <- circlize::colorRamp2(breaks, colors)
@@ -42,15 +54,30 @@ makeAComplexHeatmap <- function(matrix, windowSize = 1) {
     rep(paste0("Chr ", letters[1:10]), 10) %>% sort()
   }
   return(Heatmap(matrix,
+                 height = unit(24, "cm"),
     cluster_columns = FALSE, cluster_rows = FALSE, col = matrixColours, show_heatmap_legend = TRUE, show_column_names = TRUE, use_raster = TRUE, split = splitChromosomes, gap = unit(3, "mm"), border = TRUE,
     heatmap_legend_param = list(
       at = breaks,
-      labels = c("-0.5", "0", "0.5", "NIL", "1", as.character(max(cdrange)))
+      labels = c(min(aprange), "0", max(aprange), "NIL", "1", as.character(max(cdrange)))
     )
   ))
 }
 
 server <- function(input, output, session) {
+  ## Hide the initial loading waiter when the server idles for the first time
+  ## after load.
+  waiter::waiter_preloader(html = spin_1(),
+                           color = "#333e48",
+                           image = "",
+                           fadeout = TRUE,
+                           logo = "")
+  fullApp_loadingScreen <- waiter::Waiter$new(
+    id = c("sojournDensityPlot",
+           "heatmapPopulationOne",
+           "heatmapPopulationTwo"),
+    hide_on_render = TRUE
+  )
+  
   ##### OUTPUTS
   ## NOTE: the currently selected row is accessed with the
   ## `input$metadata_pretty_rows_selected` variable.
@@ -78,14 +105,16 @@ server <- function(input, output, session) {
           mapping = aes(x = position, y = meanDensity)
         ) +
         geom_vline(xintercept = seq(50, 950, length = 10) * 1000, size = 0.5)
-      base
+      return(base)
     }
   })
 
   output$heatmapPopulationOne <- renderPlot({
+    req(input$metadata_pretty_rows_selected)
     return(heatmapList()[[1]] %>% makeAComplexHeatmap())
   })
   output$heatmapPopulationTwo <- renderPlot({
+    req(input$metadata_pretty_rows_selected)
     return(heatmapList()[[2]] %>% makeAComplexHeatmap())
   })
 
@@ -102,14 +131,15 @@ server <- function(input, output, session) {
       sojournDensityList_deblobbed <- sojournDensityList_rawCxn %>% unserialize()
       return(sojournDensityList_deblobbed)
     } else {
-      ## print("Returned value from database query is not a raw / connection that can be unserialized.")
-      ## print(glue("Class of sojournDensityList_rawCxn: {class(sojournDensityList_rawCxn)}"))
+      print("Returned value from database query is not a raw / connection that can be unserialized.")
+      print(glue("Class of sojournDensityList_rawCxn: {class(sojournDensityList_rawCxn)}"))
     }
   })
 
   heatmapList <- reactive({
     # Requirements
     req(input$replicate_selection)
+    req(input$metadata_pretty_rows_selected)
 
     # SQLite query
     # Must be a single filename
@@ -119,28 +149,12 @@ server <- function(input, output, session) {
     return(heatmap_List)
   })
 
-  ##### RENDERED UI
-  output$replicate_selection_rendered <- renderUI({
-    tagList(
-      pickerInput(
-        inputId = "replicate_selection",
-        label = "Replicate",
-        choices = NULL
-      )
-    )
-  })
-
   ##### EVENT OBSERVATIONS
-  ## FIXME: the first row selection does not properly update the
-  ## replicate_selection input widget, and it remains empty until a second
-  ## selection is made.
-  ## NOTE: non-solution: This might be fixed by using a freezeReactiveValue call on the widget so
-  ## that it is properly invalidated whenever a row selection event is detected,
-  ## including the first.
   observeEvent(input$metadata_pretty_rows_selected,
     {
       if (!is.null(input$metadata_pretty_rows_selected)) {
-
+        fullApp_loadingScreen$show()
+        
         ## The filenames, as a named list.
         parameter_set_filenames <- dplyr::slice(metadata, input$metadata_pretty_rows_selected) %>%
           pull(filenameList) %>%
@@ -156,21 +170,22 @@ server <- function(input, output, session) {
           str_extract("\\d{13}") %>%
           as.list()
 
-        updateTabsetPanel(
-          inputId = "conditional_display",
-          selected = "sojourn_density"
-        )
         freezeReactiveValue(input, "replicate_selection")
         updatePickerInput(session = session,
                           inputId = "replicate_selection",
-          choices = parameter_set_filenames,
-          choicesOpt = list(
-            subtext = paste(
-              "Random seed:",
-              parameter_set_seeds
-            )
-          ),
-          options = pickerOptions(showSubtext = TRUE)
+                          choices = parameter_set_filenames,
+                          choicesOpt = list(
+                            subtext = paste(
+                              "Random seed:",
+                              parameter_set_seeds
+                            )
+                          ),
+                          options = pickerOptions(showSubtext = TRUE)
+        )
+        
+        updateTabsetPanel(
+          inputId = "conditional_display",
+          selected = "sojourn_density"
         )
       } else {
         updateTabsetPanel(
@@ -184,6 +199,9 @@ server <- function(input, output, session) {
 }
 
 ui <- fluidPage(
+  ## Use Waiter
+  waiter::useWaiter(),
+  
   ## Application title
   titlePanel("Antagonistic Pleiotropy (w/ Conditionally Deleterious Mutations)"),
 
@@ -208,10 +226,16 @@ ui <- fluidPage(
         ),
         tabPanelBody(
           "sojourn_density",
+          pickerInput(
+            inputId = "replicate_selection",
+            label = "Replicate",
+            choices = NULL
+          ),
           plotOutput("sojournDensityPlot"),
-          uiOutput("replicate_selection_rendered"),
-          column(6, plotOutput("heatmapPopulationOne")),
-          column(6, plotOutput("heatmapPopulationTwo"))
+          plotOutput("heatmapPopulationOne"),
+          plotOutput("heatmapPopulationTwo")
+          #column(6, ),
+          #column(6, )
         )
       )))
 )
