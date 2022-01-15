@@ -24,9 +24,7 @@ Parameters are generated from a tsv file. See the `parameterSet-2021-12-18.txt` 
 
  > ⚠️ Warning:
  > The SLiM model outputs the entire model state for save files in the same event block as the custom output is generated. This was written mostly in 2019, and as such was not changed. The implication of output being at the beginning of a generation or the end was discussed and deemed not an important distinction when the frequency of output is every five thousand generations.
- > ```c
- #WARNING (SLiMSim::ExecuteMethod_outputFull): outputFull() should probably not be called from an early() event in a WF model; the output will reflect state at the beginning of the generation, not the end.
- ```
+ > `#WARNING (SLiMSim::ExecuteMethod_outputFull): outputFull() should probably not be called from an early() event in a WF model; the output will reflect state at the beginning of the generation, not the end.`
 
 The version of SLiM that was used to generate the output on Compute Canada clusters is given below.
 
