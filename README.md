@@ -42,36 +42,34 @@
   </aside>
 </div>
 
-<div style="margin-right: 30pt; margin-right: 30pt;">
-  <a href="https://www.github.com/bryce-carson/Carson2022">The *Carson 2022* repository</a> hosts the source code and documentation of that code used in the production of data for a study of local adaptation using SLiM. It also hosts the source code of the documentation (from which this webpage is generated).
+<a href="https://www.github.com/bryce-carson/Carson2022">The *Carson 2022* repository</a> hosts the source code and documentation of that code used in the production of data for a study of local adaptation using SLiM. It also hosts the source code of the documentation (from which this webpage is generated).
 
-  At the time of publication of the data to the FRDR the manuscript describing this research is not published. The researchers involved are listed below (with contributing roles and affiliations in parentheses).
+At the time of publication of the data to the FRDR the manuscript describing this research is not published. The researchers involved are listed below (with contributing roles and affiliations in parentheses).
 
-  <table>
-    <tr><th>Contributor</th><th>ORCID iD</th><th>Contribution</th><th>Affiliation</th></tr>
-    
-    <tr class="table-row">
-      <td class="table-column-contributors-names">Bryce Carson</td>
-      <td class="table-column-contributors-orcid-id">???</td>
-      <td class="table-column-contributors-affiliations">Data, code author</td>
-      <td class="table-column-contributors-affiliations">Mount Royal University (Research Assistant)</td>
-    </tr>
+<table>
+  <tr><th>Contributor</th><th>ORCID iD</th><th>Contribution</th><th>Affiliation</th></tr>
+  
+  <tr class="table-row">
+    <td class="table-column-contributors-names">Bryce Carson</td>
+    <td class="table-column-contributors-orcid-id">???</td>
+    <td class="table-column-contributors-affiliations">Data, code author</td>
+    <td class="table-column-contributors-affiliations">Mount Royal University (Research Assistant)</td>
+  </tr>
 
-    <tr class="table-row">
-      <td class="table-column-contributors-names">Jon Mee</td>
-      <td class="table-column-contributors-orcid-id">???</td>
-      <td class="table-column-contributors-contribution">Principle investigator</td>
-      <td class="table-column-contributors-affiliation">Mount Royal University (Associate Professor)</td>
-    </tr>
+  <tr class="table-row">
+    <td class="table-column-contributors-names">Jon Mee</td>
+    <td class="table-column-contributors-orcid-id">???</td>
+    <td class="table-column-contributors-contribution">Principle investigator</td>
+    <td class="table-column-contributors-affiliation">Mount Royal University (Associate Professor)</td>
+  </tr>
 
-    <tr class="table-row">
-      <td class="table-column-contributors-names">Sam Yeaman</td>
-      <td class="table-column-contributors-orcid-id">???</td>
-      <td class="table-column-contributors-contribution">Principle investigator</td>
-      <td class="table-column-contributors-affiliation">University of Calgary (Associate Professor)</td>
-    </tr>
-  </table>
-</div>
+  <tr class="table-row">
+    <td class="table-column-contributors-names">Sam Yeaman</td>
+    <td class="table-column-contributors-orcid-id">???</td>
+    <td class="table-column-contributors-contribution">Principle investigator</td>
+    <td class="table-column-contributors-affiliation">University of Calgary (Associate Professor)</td>
+  </tr>
+</table>
 
 # Federated Research Data Repository (FRDR)
 Data published in the FRDR was created as a research output during the method of study for a forthcoming publication by the data author and others. When a manuscript is in a pre-print archive or officially published this repository will be updated to reflect that.
