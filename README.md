@@ -3,14 +3,11 @@
 <!-- 2. Assess the need for a *simple* R6 class for simulations that ties together parameters, output files, and the continuance of that simulation from any existing save state file. -->
 <!-- 3. Fully document the sub-projects in the repository (SLiM, Shiny, etc.) -->
 <!-- 4. Complete the Shiny application and allow Jon to review it. -->
-<div style="text-align: center; line-height: 0.3">
-<p>Antagonistic Pleiotropy</p>
-<p>&amp</p>
-<p>Conditionally Deleterious Mutations</p>
-<p>with</p>
-<p>Functional Genetic Redundancy</p>
-<p>Bryce Carson</p>
-<p>2022-04-30</p>
+<div align="center">
+<h3>Antagonistic Pleiotropy & Conditionally Deleterious Mutations</h3>
+<h3>in Local Adaptation with Functional Genetic Redundancy</h3>
+<h5>Bryce Carson</h5>
+<h5>2022-04-30</h5>
 </div>
     
 <details>
