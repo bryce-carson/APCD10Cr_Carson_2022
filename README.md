@@ -1,122 +1,96 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap" rel="stylesheet">
-<style>
-  .oxford-citation-text {
-    font-style: normal;
-    padding-left: 0.5in;
-    text-indent: -0.5in;
-  }
-  .justgivemeindentation {
-      font-family: 'Roboto', monospace;
-      font-weight: 700;
-      font-style: normal;
-  }
-  h1,h2,h3 {
-      font-family: 'Source Code Pro', regular;
-      font-style: normal;
-  }
-  blockquote p {
-      font-style: normal;
-  }
-  blockquote p em {
-      color: yellow;
-  }
-</style>
-
-# TODO:
-1. Finish writing the README
-2. Assess the need for a *simple* R6 class for simulations that ties together parameters, output files, and the continuance of that simulation from any existing save state file.
-3. Fully document the sub-projects in the repository (SLiM, Shiny, etc.)
-4. Complete the Shiny application and allow Jon to review it.
-
----
-
-<div style="text-align: center;"><h1>Carson 2022</h1></div>
-
-<div class="local-adaptation aside">
-  <aside style="float: right; margin-right: -35%;">
-    <details>
-      <summary>What is local adaptation?</summary>
-      <p>Local adaptation is genetic adaptation to a local environment; for the (sub-)population the term applies to (a locally adpated population), that population has its highest fitness in that location. If the population migrates to another location its fitness will be reduced. Some definitions also require that the (sub-)population have the highest fitness relative to any sample of individuals of the species that could migrate to that location.</p>
-    </details>
-  </aside>
+<!-- # TODO: -->
+<!-- 1. Finish writing the README -->
+<!-- 2. Assess the need for a *simple* R6 class for simulations that ties together parameters, output files, and the continuance of that simulation from any existing save state file. -->
+<!-- 3. Fully document the sub-projects in the repository (SLiM, Shiny, etc.) -->
+<!-- 4. Complete the Shiny application and allow Jon to review it. -->
+<div style="text-align: center; line-height: 0.3">
+<p>Antagonistic Pleiotropy</p>
+<p>&amp</p>
+<p>Conditionally Deleterious Mutations</p>
+<p>with</p>
+<p>Functional Genetic Redundancy</p>
+<p>Bryce Carson</p>
+<p>2022-04-30</p>
 </div>
+    
+<details>
+<summary>What is local adaptation?</summary>
+<p>Local adaptation is genetic adaptation to a local environment; for the (sub-)population the term applies to (a locally adpated population), that population has its highest fitness in that location. If the population migrates to another location its fitness will be reduced. Some definitions also require that the (sub-)population have the highest fitness relative to any sample of individuals of the species that could migrate to that location.</p>
+</details>
 
 <a href="https://www.github.com/bryce-carson/Carson2022">The *Carson 2022* repository</a> hosts the source code and documentation of that code used in the production of data for a study of local adaptation using SLiM. It also hosts the source code of the documentation (from which this webpage is generated).
 
-At the time of publication of the data to the FRDR the manuscript describing this research is not published. The researchers involved are listed below (with contributing roles and affiliations in parentheses).
+At the time of publication of the data to the Federated Research Data Repository (hereafter FRDR), the manuscript describing this research is not published and is in preparation. The researchers involved in this study are listed in the table below.
+
+The title for the BioRXiv manuscript in preparation is: Mee, J.A., Carson, C., & Yeaman, S.M. (2022) *The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci*.
 
 <table>
-  <tr><th>Contributor</th><th>ORCID iD</th><th>Contribution</th><th>Affiliation</th></tr>
+  <tr><th>Contributor</th><th>ORCID iD</th><th>Contributor role and details</th><th>Affiliation</th></tr>
   
   <tr class="table-row">
     <td class="table-column-contributors-names">Bryce Carson</td>
-    <td class="table-column-contributors-orcid-id">???</td>
-    <td class="table-column-contributors-affiliations">Data, code author</td>
+    <td class="table-column-contributors-orcid-id"><a href="https://orcid.org/0000-0002-1362-2998">0000-0002-1362-2998</a></td>
+    <td class="table-column-contributors-affiliations">Sole author of data and source code for multi-chromosome simulations (see details)</td>
     <td class="table-column-contributors-affiliations">Mount Royal University (Research Assistant)</td>
   </tr>
 
   <tr class="table-row">
     <td class="table-column-contributors-names">Jon Mee</td>
-    <td class="table-column-contributors-orcid-id">???</td>
+    <td class="table-column-contributors-orcid-id"><a href="https://orcid.org/0000-0003-0688-1390">0000-0003-0688-1390</a></td>
     <td class="table-column-contributors-contribution">Principle investigator</td>
     <td class="table-column-contributors-affiliation">Mount Royal University (Associate Professor)</td>
   </tr>
 
   <tr class="table-row">
     <td class="table-column-contributors-names">Sam Yeaman</td>
-    <td class="table-column-contributors-orcid-id">???</td>
+    <td class="table-column-contributors-orcid-id"><a href="https://orcid.org/0000-0002-1706-8699">0000-0002-1706-8699</a></td>
     <td class="table-column-contributors-contribution">Principle investigator</td>
     <td class="table-column-contributors-affiliation">University of Calgary (Associate Professor)</td>
   </tr>
 </table>
 
+## Contribution details
+The owner of this repository, Bryce Carson, is the sole author of the data and source code for the source files in this repository, and the dataset linking to this repository from the FRDR.
+
 # Federated Research Data Repository (FRDR)
 Data published in the FRDR was created as a research output during the method of study for a forthcoming publication by the data author and others. When a manuscript is in a pre-print archive or officially published this repository will be updated to reflect that.
 
-If you have questions related to the data or GitHub repository only, contact Bryce Carson (<bcars268@mtroyal.ca>).
+If you have questions related to the data published in the FRDR or GitHub repository contact Bryce Carson (<bcars268@mtroyal.ca>).
 
 # CONTENTS
 ```
+APCD10Cr_Carson_2022
 .
-├── brycecarsonpaperstoprint.zip
-├── continueSimulations
-│   ├── continueParallel.sh
-│   ├── continueSimulations-2021-10-05-partOne.R
-│   ├── continueSimulations-2021-10-05-partTwo.R
-│   └── continueSimulations.Rmd
+├── APCD10Cr_continue_unfinished_simulations
+│   ├── continue_sims_20211005_part_one.R
+│   ├── continue_sims_20211005_part_two.R
+│   ├── continue_sims_20220425.Rmd
+│   └── continue_sims_using_gnu_parallel.sh
 ├── COPYING.txt
-├── dataValidation
-│   ├── dataValidation.R
-│   ├── dataValidation.sh
+├── ACPD10Cr_data_validation
+│   ├── APCD10Cr_data_validation.R
+│   ├── APCD10Cr_data_validation.sh
 │   └── renv.lock
-├── #README.html#
-├── README.html
-├── README.log
 ├── README.md
-├── README.Rmd
-├── README.tex
-├── RSQLite
-│   ├── MeeCarsonYeaman2021.R
-│   ├── MeeCarsonYeaman2021.sh
+├── APCD10Cr_mutations_analysis_generate_RSQLite3_database
+│   ├── APCD10Cr_mutations_analysis.R
+│   ├── APCD10Cr_mutations_analysis_job_script.sh
 │   └── renv.lock
-├── sacct
-│   ├── RSession?.RData
-│   ├── sacct.log
-│   ├── sacct.log.R
-│   ├── sacct.RData
-│   └── sacct.Rhistory
-├── Shiny
-│   ├── MeeCarsonYeaman2021-12-28T21:54.db
-│   ├── renv.lock
-│   └── shinyAPCD.R
-└── SLiM
-    ├── APCD10Cr-2021-12-22.slim
-    ├── generateParameterFiles.sh
-    ├── jobScript.sh
-    └── parameterSet-2021-12-18.tsv
-
-6 directories, 30 files
+├── ACPD10Cr_sacct
+│   ├── APCD10Cr_RSession?.RData
+│   ├── APCD10Cr_sacct.log
+│   ├── APCD10Cr_sacct.log.R
+│   ├── APCD10Cr_sacct.RData
+│   └── APCD10Cr_sacct.Rhistory
+├── ACPD10Cr_shiny
+│   ├── APCD10Cr_mutations_app.R
+│   ├── APCD10Cr_mutations_db_created_20211228.db
+│   └── renv.lock
+└── ACPD10Cr_SLiM3
+    ├── APCD10Cr_20211222.slim
+    ├── APCD10Cr_generate_parameter_files.sh
+    ├── APCD10Cr_job_script.sh
+    └── APCD10Cr_parameters_20211218.tsv
 ```
 
 There are several files related to the general workflow: `APCD10Cr-2021-12-01.slim`; `validateOutput.R`; `MeeCarsonYeaman2021.R`; and `shinyAPCD.R`. The first two R files have BASH scripts of the same name (i.e. `.sh` file extension) used for SLURM scheduling and launching the R script on Compute Canada clusters.
@@ -232,3 +206,10 @@ The version of SLiM that was used to generate the output on Compute Canada clust
 4. Create a backup of the files that will be worked on, just in case of a progammer error. "Only human."
 5. Delete the last (most recent) save state file, and trim that generation's output from the indFitness and out_Muts output files.
 6. Call asynchronous processes for each command-line built and finish the simulations.
+
+# FRDR
+These are the files published in the FRDR dataset: . Link: .
+
+![screenshot_of_directory_structure_of_globus_dataset.png](globus.png)
+
+TODO: get a new top-level directory listing (just the folder names and the name of the database) for the README.md.
