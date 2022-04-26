@@ -9,6 +9,13 @@
 <h5>Bryce Carson</h5>
 <h5>2022-04-30</h5>
 </div>
+
+<div align="center">
+<details>
+<summary>Why the title?</summary>
+Explain the titling of this markdown document...
+</details>
+</div>
     
 <details>
 <summary>What is local adaptation?</summary>
