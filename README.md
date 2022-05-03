@@ -369,15 +369,21 @@ glue_data(
        ~ write_lines(x = .x, file = .y))
 ```
 
-# FRDR
+# Data publication (archival)
+The research data produced by the code in this repository is archived in the FRDR under the dataset title *TODO: new title*.
+
+<div align="center">
+
 ![FRDR-DFDR logo in colour with both French and English names and a transparent background, for display over black or dark colours](FRDR-FR-EN-WHITE.png#gh-dark-mode-only)
 ![FRDR-DFDR logo in colour with both French and English names and a transparent background, for display over white or light colours](FRDR-FR-EN.png#gh-light-mode-only)
+
+</div>
 
 These are the files published in the FRDR dataset: TODO: name of data publication. Link: TODO.
 
 ![screenshot_of_directory_structure_of_globus_dataset.png](globus.png)
 
-# NSERC Funding
+# Funding
 We acknowledge the support of the Natural Sciences and Engineering Research Council of Canada (NSERC).
 
 Nous remercions le Conseil de recherches en sciences naturelles et en génie du Canada (CRSNG) de son soutien.
