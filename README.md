@@ -378,5 +378,7 @@ These are the files published in the FRDR dataset: TODO: name of data publicatio
 ![screenshot_of_directory_structure_of_globus_dataset.png](globus.png)
 
 # NSERC Funding
+<div align="center">
 ![NSERC signature in white coloured type face, with transparent background](NSERC_FIP_WHITE.png#gh-dark-mode-only)
 ![NSERC signature in black coloured type face, with transparent background](NSERC_FIP_BLACK.png#gh-light-mode-only)
+</div>
