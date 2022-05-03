@@ -370,11 +370,13 @@ glue_data(
 ```
 
 # FRDR
-![FRDR-DFDR logo in colour with both French and English names and a transparent background](FRDR-FR-EN.png)
+![FRDR-DFDR logo in colour with both French and English names and a transparent background, for display over black or dark colours](FRDR-FR-EN-WHITE.png#gh-dark-mode-only)
+![FRDR-DFDR logo in colour with both French and English names and a transparent background, for display over white or light colours](FRDR-FR-EN.png#gh-light-mode-only)
 
 These are the files published in the FRDR dataset: TODO: name of data publication. Link: TODO.
 
 ![screenshot_of_directory_structure_of_globus_dataset.png](globus.png)
 
 # NSERC Funding
-![NSERC signature colour-image, with transparent background](NSERC_FIP_RGB.png)
+![NSERC signature in white coloured type face, with transparent background](NSERC_FIP_WHITE.png#gh-dark-mode-only)
+![NSERC signature in black coloured type face, with transparent background](NSERC_FIP_BLACK.png#gh-light-mode-only)
