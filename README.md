@@ -296,10 +296,10 @@ The third case was not actually used, but is generally implemented in the SLiM w
 The version of SLiM that was used to generate the output on Compute Canada clusters is given below.
 
 > <div class="justgivemeindentation"><pre><font color="#2AA1B3"><b>~/bin</b></font> <font color="#26A269"><b>❯</b></font> slim -v<br>SLiM version 3.3.2, built May 4 2020 19:43:23</pre></div>
->
-> <div class="oxford-citation-text">
-            <p>Benjamin C Haller, Philipp W Messer,  SLiM 3: Forward Genetic Simulations Beyond the Wright–Fisher Model, <em>Molecular Biology and Evolution</em>, Volume 36, Issue 3, March 2019, Pages 632–637, <a href="https://doi.org/10.1093/molbev/msy228" data-google-interstitial="false">https://doi.org/10.1093/molbev/msy228</a></p>
-        </div>
+
+<div class="oxford-citation-text">
+<p>Benjamin C Haller, Philipp W Messer,  SLiM 3: Forward Genetic Simulations Beyond the Wright–Fisher Model, <em>Molecular Biology and Evolution</em>, Volume 36, Issue 3, March 2019, Pages 632–637, <a href="https://doi.org/10.1093/molbev/msy228" data-google-interstitial="false">https://doi.org/10.1093/molbev/msy228</a></p>
+</div>
 
 # dataValidation/
 The mutation output files for every simulation included in the SQLite database and usable with the Shiny application were validated using the `assertr` and Appsilon `data.validator` packages.
