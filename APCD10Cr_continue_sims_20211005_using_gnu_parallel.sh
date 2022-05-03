@@ -14,6 +14,7 @@ module load gcc/9.3.0 r/4.1.0
 # NOTE: Generate the command-lines that GNU parallel will use to launch
 # processes, as well as run `sed` on the *out_Muts.txt and *out_indFitness.txt
 # files, and deleting the very last saveState file, and backing up all three files.
+## TODO: rename file and get rid of the directory component
 R CMD BATCH --vanilla ~/continueSimulations/continueSimulations-2021-10-05-partOne.R  ~/continueSimulations/continueSimulations-2021-10-05-partOne.Rout
 
 # NOTE: If GNU parallel completes successfully, ie all of the processes it
@@ -24,7 +25,7 @@ parallel --jobs ${SLURM_NTASKS_PER_NODE} --sshloginfile ~/continueSimulations/no
 
 # Copyright 2021 Bryce Carson
 # Author: Bryce Carson <bcars268@mtroyal.ca>
-# URL: https://github.com/bryce-carson/Carson2022
+# URL: https://github.com/bryce-carson/APCD10Cr_Carson_2022
 #
 # continueParallel.sh is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 #

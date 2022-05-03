@@ -1,6 +1,6 @@
 # Copyright 2022 Bryce Carson
 # Author: Bryce Carson <bcars268@mtroyal.ca>
-# URL: https://github.com/bryce-carson/Carson2022
+# URL: https://github.com/bryce-carson/APCD10Cr_Carson_2022
 #
 # MeeCarsonYeaman2021.R is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 #
@@ -28,7 +28,7 @@ library(futile.logger)
 library(tryCatchLog)
 library(rlang)
 
-flog.appender(appender.file("/home/bcars268/RSQLite/MeeCarsonYeaman2021.log"))
+flog.appender(appender.file("~/RSQLite/MeeCarsonYeaman2021.log"))
 flog.threshold(ERROR)
 
 print("Libraries, options, and packages were loaded.")

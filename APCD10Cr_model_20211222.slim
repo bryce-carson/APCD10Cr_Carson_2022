@@ -2,7 +2,7 @@
 Copyright 2021 Bryce Carson
 Author: Bryce Carson <bcars268@mtroyal.ca>
 Contributor: Clément Rougeux <clement.rougeux@ucalgary.ca>
-URL: https://github.com/bryce-carson/Carson2022
+URL: https://github.com/bryce-carson/APCD10Cr_Carson_2022
 
 APCD10Cr-2021-12-22.slim is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
@@ -21,7 +21,7 @@ initialize() {
   /* Unless all of the command-line arguments for continuing from existing
      simulations exist, specify the defaults and ensure they exist. */
   if(all(exists(c("outputMutationsFile", "outputIndFitnessFile", "saveStateDirectory"))) == F) {
-    defineConstant("pathOUT", "/home/bcars268/scratch/Output/");
+    defineConstant("pathOUT", "$HOME/scratch/Output/");
     defineConstant("useDefaultPath", "TRUE");
 
     if(N == 1000) {
@@ -34,6 +34,9 @@ initialize() {
     defineConstant("saveStateDirectory", paste(c("n", populationSizeWord, "saveStates/"), sep = ""));
 
     // Check if the directories exist, if not create them.
+    if(fileExists(pathOUT) == "FALSE") {
+      createDirectory(pathOUT);
+    }
     if(fileExists(paste(c(pathOUT, outputDataDirectory), sep = "")) == "FALSE") {
       createDirectory(paste(c(pathOUT, outputDataDirectory), sep = ""));
     }

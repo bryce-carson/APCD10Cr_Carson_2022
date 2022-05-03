@@ -1,0 +1,88 @@
+(undo-tree-save-format-version . 1)
+"af4c317510408905fce24ed0e5dd4550850efa08"
+[nil nil nil nil (25162 41502 724011 830000) 0 nil]
+([nil nil ((#("#+RESULTS:
+| position | origin generation | origin population | selection coefficient | population frequency |
+|----------+-------------------+-------------------+-----------------------+----------------------|
+|    49548 |             63708 |                 1 |                     0 |                0.983 |
+|    49548 |             99990 |                 2 |                0.1666 |                0.003 |
+|    49548 |             99953 |                 2 |                0.1666 |                0.001 |
+|    49548 |             99958 |                 1 |                     0 |                0.001 |
+|    49548 |             99973 |                 1 |                     0 |                0.001 |
+|    49548 |             99946 |                 2 |               -0.1666 |                0.011 |
+|   149648 |             99907 |                 1 |                0.1666 |                0.011 |
+|   149648 |             99993 |                 2 |                0.1666 |               0.0005 |
+|   149648 |             99938 |                 2 |                0.1666 |               0.0075 |
+|   149648 |             99983 |                 2 |                     0 |                0.001 |
+|   149648 |             97485 |                 1 |               -0.1666 |                0.022 |
+|   149648 |             99837 |                 2 |                     0 |                0.002 |
+|   149648 |             99378 |                 2 |                     0 |                0.009 |
+|   149648 |             56396 |                 1 |                     0 |                0.947 |
+|   249748 |             99990 |                 2 |                0.1666 |               0.0035 |
+|   249748 |             99984 |                 1 |                0.1666 |               0.0045 |
+|   249748 |             99980 |                 1 |               -0.1666 |               0.0035 |
+|   249748 |             99998 |                 1 |                     0 |                    0 |
+|   249748 |             99566 |                 2 |                     0 |                0.024 |
+|   249748 |             99993 |                 2 |                0.1666 |               0.0005 |
+|   249748 |             53731 |                 2 |                0.1666 |               0.9315 |
+|   249748 |             99974 |                 2 |                0.1666 |                0.013 |
+|   249748 |             99936 |                 2 |                     0 |               0.0135 |
+|   249748 |             99957 |                 2 |                     0 |                0.006 |
+|   349848 |             96688 |                 1 |                     0 |               0.4745 |
+|   349848 |             99997 |                 2 |                0.1666 |               0.0005 |
+|   349848 |             99971 |                 2 |                     0 |                0.006 |
+|   349848 |             98559 |                 1 |                     0 |               0.4595 |
+|   349848 |             75854 |                 2 |                     0 |                0.046 |
+|   349848 |             99724 |                 2 |                     0 |               0.0135 |
+|   449948 |             92834 |                 1 |               -0.1666 |               0.8395 |
+|   449948 |             99998 |                 2 |               -0.1666 |               0.0005 |
+|   449948 |             99272 |                 2 |               -0.1666 |                 0.16 |
+|   550048 |             99877 |                 2 |                     0 |               0.0095 |
+|   550048 |             99564 |                 1 |                0.1666 |                0.028 |
+|   550048 |             99977 |                 1 |                0.1666 |               0.0005 |
+|   550048 |             88824 |                 2 |                0.1666 |                0.959 |
+|   550048 |             99987 |                 1 |               -0.1666 |               0.0025 |
+|   550048 |             99988 |                 1 |                0.1666 |               0.0005 |
+|   650148 |             99596 |                 1 |                     0 |               0.0585 |
+|   650148 |             99970 |                 1 |                0.1666 |               0.0015 |
+|   650148 |             83244 |                 2 |                     0 |                0.723 |
+|   650148 |             99255 |                 1 |               -0.1666 |               0.1955 |
+|   650148 |             99990 |                 1 |                     0 |               0.0005 |
+|   650148 |             99825 |                 1 |                0.1666 |                0.021 |
+|   650148 |             99999 |                 1 |                0.1666 |                    0 |
+|   750248 |             99944 |                 1 |                0.1666 |                0.008 |
+|   750248 |             97081 |                 1 |                     0 |                0.232 |
+|   750248 |             99603 |                 1 |                0.1666 |               0.1865 |
+|   750248 |             89422 |                 1 |                0.1666 |               0.1665 |
+|   750248 |             98987 |                 2 |                0.1666 |                0.015 |
+|   750248 |             99771 |                 2 |                0.1666 |                 0.02 |
+|   750248 |             99789 |                 1 |                     0 |               0.0225 |
+|   750248 |             97812 |                 2 |                     0 |               0.3055 |
+|   750248 |             99121 |                 1 |               -0.1666 |                0.044 |
+|   850348 |             73146 |                 1 |                     0 |               0.2225 |
+|   850348 |             99999 |                 2 |                0.1666 |                    0 |
+|   850348 |             99994 |                 1 |               -0.1666 |                    0 |
+|   850348 |             99962 |                 2 |               -0.1666 |                0.001 |
+|   850348 |             99889 |                 1 |               -0.1666 |                0.001 |
+|   850348 |             99994 |                 2 |               -0.1666 |                0.001 |
+|   850348 |             97597 |                 2 |                     0 |               0.6765 |
+|   850348 |             97063 |                 2 |                     0 |                0.011 |
+|   850348 |             98074 |                 2 |               -0.1666 |               0.0095 |
+|   850348 |             99753 |                 2 |               -0.1666 |               0.0215 |
+|   850348 |             99646 |                 1 |                0.1666 |                0.056 |
+|   950448 |             99891 |                 2 |               -0.1666 |                0.001 |
+|   950448 |             64664 |                 1 |               -0.1666 |               0.9805 |
+|   950448 |             99870 |                 1 |                0.1666 |               0.0085 |
+|   950448 |             99960 |                 2 |                     0 |                 0.01 |
+" 0 10 (face org-meta-line font-lock-fontified t fontified t) 10 11 (fontified t) 11 110 (face org-table fontified t) 110 111 (fontified t) 111 210 (face org-table fontified t) 210 211 (fontified t) 211 310 (face org-table fontified t) 310 311 (fontified t) 311 383 (face org-table fontified t) 383 410 (face org-table fontified t) 410 411 (fontified t) 411 510 (face org-table fontified t) 510 511 (fontified t) 511 610 (face org-table fontified t) 610 611 (fontified t) 611 710 (face org-table fontified t) 710 711 (fontified t) 711 810 (face org-table fontified t) 810 811 (fontified t) 811 910 (face org-table fontified t) 910 911 (fontified t) 911 1010 (face org-table fontified t) 1010 1011 (fontified t) 1011 1110 (face org-table fontified t) 1110 1111 (fontified t) 1111 1210 (face org-table fontified t) 1210 1211 (fontified t) 1211 1310 (face org-table fontified t) 1310 1311 (fontified t) 1311 1410 (face org-table fontified t) 1410 1411 (fontified t) 1411 1510 (face org-table fontified t) 1510 1511 (fontified t) 1511 1610 (face org-table fontified t) 1610 1611 (fontified t) 1611 1710 (face org-table fontified t) 1710 1711 (fontified t) 1711 1810 (face org-table fontified t) 1810 1811 (fontified t) 1811 1910 (face org-table fontified t) 1910 1911 (fontified t) 1911 2010 (face org-table fontified t) 2010 2011 (fontified t) 2011 2110 (face org-table fontified t) 2110 2111 (fontified t) 2111 2210 (face org-table fontified t) 2210 2211 (fontified t) 2211 2310 (face org-table fontified t) 2310 2311 (fontified t) 2311 2410 (face org-table fontified t) 2410 2411 (fontified t) 2411 2510 (face org-table fontified t) 2510 2511 (fontified t) 2511 2610 (face org-table fontified t) 2610 2611 (fontified t) 2611 2710 (face org-table fontified t) 2710 2711 (fontified t) 2711 2810 (face org-table fontified t) 2810 2811 (fontified t) 2811 2910 (face org-table fontified t) 2910 2911 (fontified t) 2911 3010 (face org-table fontified t) 3010 3011 (fontified t) 3011 3110 (face org-table fontified t) 3110 3111 (fontified t) 3111 3210 (face org-table fontified t) 3210 3211 (fontified t) 3211 3310 (face org-table fontified t) 3310 3311 (fontified t) 3311 3410 (face org-table fontified t) 3410 3411 (fontified t) 3411 3510 (face org-table fontified t) 3510 3511 (fontified t) 3511 3610 (face org-table fontified t) 3610 3611 (fontified t) 3611 3710 (face org-table fontified t) 3710 3711 (fontified t) 3711 3810 (face org-table fontified t) 3810 3811 (fontified t) 3811 3910 (face org-table fontified t) 3910 3911 (fontified t) 3911 4010 (face org-table fontified t) 4010 4011 (fontified t) 4011 4110 (face org-table fontified t) 4110 4111 (fontified t) 4111 4210 (face org-table fontified t) 4210 4211 (fontified t) 4211 4310 (face org-table fontified t) 4310 4311 (fontified t) 4311 4410 (face org-table fontified t) 4410 4411 (fontified t) 4411 4510 (face org-table fontified t) 4510 4511 (fontified t) 4511 4610 (face org-table fontified t) 4610 4611 (fontified t) 4611 4710 (face org-table fontified t) 4710 4711 (fontified t) 4711 4810 (face org-table fontified t) 4810 4811 (fontified t) 4811 4910 (face org-table fontified t) 4910 4911 (fontified t) 4911 5010 (face org-table fontified t) 5010 5011 (fontified t) 5011 5110 (face org-table fontified t) 5110 5111 (fontified t) 5111 5210 (face org-table fontified t) 5210 5211 (fontified t) 5211 5310 (face org-table fontified t) 5310 5311 (fontified t) 5311 5410 (face org-table fontified t) 5410 5411 (fontified t) 5411 5510 (face org-table fontified t) 5510 5511 (fontified t) 5511 5610 (face org-table fontified t) 5610 5611 (fontified t) 5611 5710 (face org-table fontified t) 5710 5711 (fontified t) 5711 5810 (face org-table fontified t) 5810 5811 (fontified t) 5811 5910 (face org-table fontified t) 5910 5911 (fontified t) 5911 6010 (face org-table fontified t) 6010 6011 (fontified t) 6011 6110 (face org-table fontified t) 6110 6111 (fontified t) 6111 6210 (face org-table fontified t) 6210 6211 (fontified t) 6211 6310 (face org-table fontified t) 6310 6311 (fontified t) 6311 6410 (face org-table fontified t) 6410 6411 (fontified t) 6411 6510 (face org-table fontified t) 6510 6511 (fontified t) 6511 6610 (face org-table fontified t) 6610 6611 (fontified t) 6611 6710 (face org-table fontified t) 6710 6711 (fontified t) 6711 6810 (face org-table fontified t) 6810 6811 (fontified t) 6811 6910 (face org-table fontified t) 6910 6911 (fontified t) 6911 7010 (face org-table fontified t) 7010 7011 (fontified t) 7011 7110 (face org-table fontified t) 7110 7111 (fontified t) 7111 7210 (face org-table fontified t) 7210 7211 (fontified t)) . 1118) (undo-tree-id116 . -11) (undo-tree-id117 . -10) (undo-tree-id118 . -7210) (t 25162 41326 528509 464000)) nil (25162 41553 294345 663000) 0 nil] [nil nil ((11197 . 11201) 775 (t 25162 41326 528509 464000)) ((#("
+
+* " 0 1 (face org-block-end-line fontified t) 1 2 (fontified t) 2 3 (face org-level-1 fontified t) 3 4 (face whitespace-trailing fontified t)) . 11197) (undo-tree-id0 . -3) (undo-tree-id1 . -3) (undo-tree-id2 . -3) (undo-tree-id3 . -3) (undo-tree-id4 . -3) (undo-tree-id5 . -3) (undo-tree-id6 . -3) (undo-tree-id7 . -2) (undo-tree-id8 . -3) (undo-tree-id9 . -3) (undo-tree-id10 . -3) (undo-tree-id11 . -3) (undo-tree-id12 . -3) (undo-tree-id13 . -3)) (25162 41494 335910 517000) 0 nil])
+([nil nil ((#("
+" 0 1 (fontified t)) . 1118) (undo-tree-id115 . -1)) nil (25162 41553 294342 803000) 0 nil])
+nil
+([nil nil ((#("#+end_src
+
+#+begin_src R
+" 0 9 (face org-block-end-line font-lock-multiline t font-lock-fontified t fontified t) 9 10 (face org-block-end-line fontified t) 10 11 (fontified t) 11 24 (face org-block-begin-line font-lock-multiline t font-lock-fontified t fontified t) 24 25 (face org-block-begin-line font-lock-multiline t font-lock-fontified t fontified t)) . 1107) (undo-tree-id22 . -10) (undo-tree-id23 . -19) (undo-tree-id24 . -19) (undo-tree-id25 . -8) (undo-tree-id26 . -8) (undo-tree-id27 . -10) (undo-tree-id28 . -10) (undo-tree-id29 . -10) (undo-tree-id30 . -10) (undo-tree-id31 . -10) (undo-tree-id32 . -11) (undo-tree-id33 . -11) (undo-tree-id34 . -11) (undo-tree-id35 . -11) (undo-tree-id36 . -11) (undo-tree-id37 . -11) (undo-tree-id38 . -11) (undo-tree-id39 . -11) (undo-tree-id40 . -11) (undo-tree-id41 . -11) (undo-tree-id42 . -11) (undo-tree-id43 . -11) (undo-tree-id44 . -11) (undo-tree-id45 . -11) (undo-tree-id46 . -11) (undo-tree-id47 . -11) (undo-tree-id48 . -11) (undo-tree-id49 . -11) (undo-tree-id50 . -11) (undo-tree-id51 . -11) (undo-tree-id52 . -11) (undo-tree-id53 . -11) (undo-tree-id54 . -11) (undo-tree-id55 . -11) (undo-tree-id56 . -11) (undo-tree-id57 . -11) (undo-tree-id58 . -11) (undo-tree-id59 . -11) (undo-tree-id60 . -11) (undo-tree-id61 . -11) (undo-tree-id62 . -11) (undo-tree-id63 . -11) (undo-tree-id64 . -11) (undo-tree-id65 . -11) (undo-tree-id66 . -11) (undo-tree-id67 . -11) (undo-tree-id68 . -11) (undo-tree-id69 . -11) (undo-tree-id70 . -11) (undo-tree-id71 . -11) (undo-tree-id72 . -11) (undo-tree-id73 . -11) (undo-tree-id74 . -11) (undo-tree-id75 . -24) (undo-tree-id76 . -11) (undo-tree-id77 . -11) (undo-tree-id78 . -11) (undo-tree-id79 . -11) (undo-tree-id80 . -11) (undo-tree-id81 . -12) (undo-tree-id82 . -12) (undo-tree-id83 . -12) (undo-tree-id84 . -12) (undo-tree-id85 . -12) (undo-tree-id86 . -19) (undo-tree-id87 . -19) (undo-tree-id88 . -19) (undo-tree-id89 . -19) (undo-tree-id90 . -19) (undo-tree-id91 . -25) (undo-tree-id92 . -8) (undo-tree-id93 . -19) (undo-tree-id94 . -19) (undo-tree-id95 . -19) (undo-tree-id96 . -19) (undo-tree-id97 . -19) (undo-tree-id98 . -19) (undo-tree-id99 . -19) (undo-tree-id100 . -19) (undo-tree-id101 . -19) (undo-tree-id102 . -19) (undo-tree-id103 . -19) (undo-tree-id104 . -10) (undo-tree-id105 . -10) (undo-tree-id106 . -10) (undo-tree-id107 . -10) (undo-tree-id108 . -10) (undo-tree-id109 . -8) (undo-tree-id110 . -8) (undo-tree-id111 . -8) (undo-tree-id112 . -8) (undo-tree-id113 . -8) (undo-tree-id114 . -8) 1115) nil (25162 41553 294340 123000) 0 nil])
+([nil current ((#("  " 0 2 (src-block t face (org-block) font-lock-multiline t font-lock-fontified t fontified t)) . -1107) (undo-tree-id14 . -2) (undo-tree-id15 . -2) (undo-tree-id16 . -2) (undo-tree-id17 . -2) (undo-tree-id18 . -2) (undo-tree-id19 . -2) (undo-tree-id20 . -2) (undo-tree-id21 . -2) 1109 (1106 . 1109) 1094) nil (25162 41553 294127 674000) 0 nil])
+nil

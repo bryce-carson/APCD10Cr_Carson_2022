@@ -1,0 +1,3 @@
+[submodule "c22pkg"]
+	path = c22pkg
+	url = ./c22pkg/

@@ -1,8 +1,28 @@
-<!-- # TODO: -->
-<!-- 1. Finish writing the README -->
-<!-- 2. Assess the need for a *simple* R6 class for simulations that ties together parameters, output files, and the continuance of that simulation from any existing save state file. -->
-<!-- 3. Fully document the sub-projects in the repository (SLiM, Shiny, etc.) -->
-<!-- 4. Complete the Shiny application and allow Jon to review it. -->
+# TODO:
+1. Identify all cases of absolute file paths and environment variable dependent paths.
+2. Document identified paths which cannot be handled defensively.
+3. & more!
+
+---
+
+# Directories
+```
+$HOME/scratch/Output
+$HOME/scratch/Output/n{One,Ten}Thousand{OutputData,saveStates}
+```
+
+---
+
+# WORKFLOW using package
+1.    Download data.
+2.    Load package.
+3.    A list of simulation objects will be created upon `SLiMSim$paper_simulations_init()`.
+4.    New simulation objects can be created by assigning `SLiMSim$new(...)` (read the package documentation) to an object such as `simulation_one`.
+5.    Simulation information can be printed with `simulation_one$print()`.
+6.    Simulations can be continued using `simulation_one$continue(...)` to acquire the command-line used for continuing a simulation.
+
+------------------------------------------------------------------------
+
 <div align="center">
 <h3>Antagonistic Pleiotropy & Conditionally Deleterious Mutations</h3>
 <h3>in Local Adaptation with Functional Genetic Redundancy</h3>
@@ -12,19 +32,22 @@
 
 <div align="center">
 <details>
-<summary>Why the title?</summary>
+<summary>Alternate titling of _this_ repository</summary>
 Explain the titling of this markdown document...
 </details>
 </div>
-    
+<hr> 
 <details>
 <summary>What is local adaptation?</summary>
 <p>Local adaptation is genetic adaptation to a local environment; for the (sub-)population the term applies to (a locally adpated population), that population has its highest fitness in that location. If the population migrates to another location its fitness will be reduced. Some definitions also require that the (sub-)population have the highest fitness relative to any sample of individuals of the species that could migrate to that location.</p>
 </details>
 
-<a href="https://www.github.com/bryce-carson/Carson2022">The *Carson 2022* repository</a> hosts the source code and documentation of that code used in the production of data for a study of local adaptation using SLiM. It also hosts the source code of the documentation (from which this webpage is generated).
+---
 
-At the time of publication of the data to the Federated Research Data Repository (hereafter FRDR), the manuscript describing this research is not published and is in preparation. The researchers involved in this study are listed in the table below.
+# About this repository
+<a href="https://www.github.com/bryce-carson/2022">The *APCD10Cr_Carson_2022* repository</a> hosts the source code and documentation of that code used in the production of data for *The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci*, a study of local adaptation using SLiM.
+
+At the time of publication of the data to the Federated Research Data Repository (hereafter FRDR), the manuscript by Mee, Carson, & Yeaman describing this research is not published and is in preparation. The researchers involved in this study are listed in the table below.
 
 The title for the BioRXiv manuscript in preparation is: Mee, J.A., Carson, C., & Yeaman, S.M. (2022) *The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci*.
 
@@ -54,89 +77,92 @@ The title for the BioRXiv manuscript in preparation is: Mee, J.A., Carson, C., &
 </table>
 
 ## Contribution details
-The owner of this repository, Bryce Carson, is the sole author of the data and source code for the source files in this repository, and the dataset linking to this repository from the FRDR.
+The owner of this repository, Bryce Carson, is the sole author of the source code for the source files in this repository, and the sole author of the dataset linking to this repository from the FRDR (TODO: name of dataset).
 
-# Federated Research Data Repository (FRDR)
-Data published in the FRDR was created as a research output during the method of study for a forthcoming publication by the data author and others. When a manuscript is in a pre-print archive or officially published this repository will be updated to reflect that.
+## Federated Research Data Repository (FRDR)
+Data published in the FRDR was created as a research output during the method of study for a forthcoming publication by the data author and others. When the manuscript is in a pre-print archive or officially published this repository will be updated to reflect that.
 
-If you have questions related to the data published in the FRDR or GitHub repository contact Bryce Carson (<bcars268@mtroyal.ca>).
+If you have questions related to the data published in the FRDR or this GitHub repository contact Bryce Carson (<bcars268@mtroyal.ca>).
 
 # CONTENTS
+A workflow manager was not used during data production, so several scripts were written to produce, validate, and aggregate the data. Data production, validation, and aggregation are described individually in separate sections of this README.
+
+Summarizing the whole workflow:
+1. Population genetic data is produced using SLiM 3 (Haller, Messer) with `APCD10Cr_20211222.slim` as the input model, and submitted to the scheduler using `APCD10Cr_model_20211222_job_script.sh` which depends on temporary files created by `APCD10Cr_model_generate_parameter_files.sh` and `APCD10Cr_model_20211218_parameters.tsv`. (*NOTE:* read the section to use an improved workflow, written specially for reproduction purposes.)
+2. The produced data is validated with `APCD10Cr_data_validation.R`, scheduled with `APCD10Cr_data_validation_job_script.sh`, and uses an R packages lock-file `APCD10Cr_data_validation_renv.lock`.
+3. Aggregation of the data is performed with `APCD10Cr_mutations_analysis.R`, scheduled with `APCD10Cr_mutations_analysis_job_script.sh`, and uses the R packages lock-file `APCD10Cr_mutations_analysis_renv.lock`.
+4. Visualization of aggregated data with a Shiny application (`APCD10Cr_mutations_app.R`), with the data contained in `APCD10Cr_mutations_app_db_created_20211228.db`, and an R packages lock-file `APCD10Cr_mutations_app_renv.lock`.
+
+<details><summary>File listing</summary>
 ```
 APCD10Cr_Carson_2022
 .
-├── APCD10Cr_continue_unfinished_simulations
-│   ├── continue_sims_20211005_part_one.R
-│   ├── continue_sims_20211005_part_two.R
-│   ├── continue_sims_20220425.Rmd
-│   └── continue_sims_using_gnu_parallel.sh
+├── APCD10Cr_alternation_of_genotypes
+│   ├── genotypeTimeSeries.org
+│   └── genotypeTimeSeries.org~
+├── APCD10Cr_continue_sims_20211005_part_one.R
+├── APCD10Cr_continue_sims_20211005_part_two.R
+├── APCD10Cr_continue_sims_20211005_using_gnu_parallel.sh
+├── APCD10Cr_continue_sims_20220425.Rmd
+├── APCD10Cr_data_validation_job_script.sh
+├── APCD10Cr_data_validation.R
+├── APCD10Cr_data_validation_renv.lock
+├── APCD10Cr_model_20211218_parameters.tsv
+├── APCD10Cr_model_20211222_job_script.sh
+├── APCD10Cr_model_20211222.slim
+├── APCD10Cr_model_generate_parameter_files.sh
+├── APCD10Cr_mutations_analysis_job_script.sh
+├── APCD10Cr_mutations_analysis.R
+├── APCD10Cr_mutations_analysis_renv.lock
+├── APCD10Cr_mutations_app_db_created_20211228.db
+├── APCD10Cr_mutations_app.R
+├── APCD10Cr_mutations_app_renv.lock
+├── APCD10Cr_sacct
+│   ├── RSession?.RData
+│   ├── sacct.log
+│   ├── sacct.log.R
+│   ├── sacct.RData
+│   └── sacct.Rhistory
+├── c22pkg
+│   ├── c22pkg.Rproj
+│   ├── DESCRIPTION
+│   ├── man
+│   ├── metadata.csv
+│   ├── mutsFilenames_sorted.txt
+│   ├── mutsFilenames.txt
+│   ├── NAMESPACE
+│   ├── R
+│   │   └── SLiMSim.R
+│   ├── README.html
+│   ├── README.md
+│   ├── renv
+│   │   ├── activate.R
+│   │   ├── settings.dcf
+│   │   └── staging
+│   └── renv.lock
 ├── COPYING.txt
-├── ACPD10Cr_data_validation
-│   ├── APCD10Cr_data_validation.R
-│   ├── APCD10Cr_data_validation.sh
-│   └── renv.lock
-├── README.md
-├── APCD10Cr_mutations_analysis_generate_RSQLite3_database
-│   ├── APCD10Cr_mutations_analysis.R
-│   ├── APCD10Cr_mutations_analysis_job_script.sh
-│   └── renv.lock
-├── ACPD10Cr_sacct
-│   ├── APCD10Cr_RSession?.RData
-│   ├── APCD10Cr_sacct.log
-│   ├── APCD10Cr_sacct.log.R
-│   ├── APCD10Cr_sacct.RData
-│   └── APCD10Cr_sacct.Rhistory
-├── ACPD10Cr_shiny
-│   ├── APCD10Cr_mutations_app.R
-│   ├── APCD10Cr_mutations_db_created_20211228.db
-│   └── renv.lock
-└── ACPD10Cr_SLiM3
-    ├── APCD10Cr_20211222.slim
-    ├── APCD10Cr_generate_parameter_files.sh
-    ├── APCD10Cr_job_script.sh
-    └── APCD10Cr_parameters_20211218.tsv
-```
+├── globus.png
+└── README.md
 
-There are several files related to the general workflow: `APCD10Cr-2021-12-01.slim`; `validateOutput.R`; `MeeCarsonYeaman2021.R`; and `shinyAPCD.R`. The first two R files have BASH scripts of the same name (i.e. `.sh` file extension) used for SLURM scheduling and launching the R script on Compute Canada clusters.
+7 directories, 39 files
+```
+</details>
 
 <div class=warning>
 
 > *⚠ Warning:*
 >
-> Use `renv` to load the lockfile within each sub-directory related to R workflows. Lockfiles specify the packages (and versions thereof) and their dependencies used in the project regardless of machine or architecture. See the vignette for renv and the talk at RStudio::Conf 2020 for more information on and an introduction to renv.
+> Use the R function `renv`, from the package of the same name, to load the lock-file for each R workflow. Lockfiles specify the packages (and versions and dependencies thereof) used in the project regardless of machine or architecture. See the vignette for renv and the talk at rstudio::conf 2020 for more information on and an introduction to renv.
  
 > *⚠ Warning:*
 >
-> Refactoring of paths and filenames has not been undertaken. Where relevant, the variables or filenames referred to in files has been documented near the top of the file. During reproduction, editing the files may be necessary to ensure that files are found in the expected places.
+> Paths and filenames were refactored to assist in reproduction. Where relevant, the variables or file-names referred to in source files have been documented. During reproduction, editing the files may still be necessary to ensure that files are found in the expected places; it is recommended to study the source files before attempting reproduction following the instructions in this repository.
 
 </div>
 
 ---
 
-
-## dataValidation/
-The mutation output files for every simulation included in the SQLite database and usable with the Shiny application were validated using the `assertr` and Appsilon `data.validator` packages.
-
-An HTML report was not generated for the full breadth of output, but was toyed with. The actual method used to monitor for file corruption or incompletion was the tryCatchLog dump, a log file, the Rout, and simple stderr or SLURM facilities.
-
-## RSQLite/
-The database contains the analyzed information and metadata of the mutation output files. The metadata uniquely specifies the ten replicates which compose a parameter set.
-
-The heatmaps and sojourn density data are included in the database, and are retrieved from it by the Shiny application for visualization and study.
-
-The SQLite database is stored in the Federated Research Data Repository (FRDR) along with the raw data from the research project this (GitHub) repository belongs to.
-
-> When the FRDR submission is approved, this repository will be updated with a link to it.
-
-1. `MeeCarsonYeaman2021.sh` copies `*out_Muts.txt` files from a scratch directory to node-local SSD storage and calls the R script after loading the R module in the compute environment.
-2. <code id="meecarsonyeaman2021">MeeCarsonYeaman2021.R</code> performs the analytical work on the mutations, such as estimating population statistics and stores this information in an SQLite database.
-
-## Shiny/ 
-The application does not at this time include support for exporting the R objects it accesses from the SQLite database or downloading the plots it generates from those objects.
-
-As of 2022-01-06 the method for accessing the data outside of the Shiny application is through using the functions in the [`MeeCarsonYeaman2021.R`](#rsqlite) script in an interactive R session.
-
-## SLiM/
+# Data production using SLiM
 **A SLiM Model**
 
 TODO: refer to c22pkg, not generateParameterFiles.sh, and write as if I wrote an R package, but do not make it a necessity.
@@ -160,6 +186,92 @@ Parameters are generated from a tsv file. See the `parameterSet-2021-12-18.txt` 
 > > `#WARNING (SLiMSim::ExecuteMethod_outputFull): outputFull() should probably not be called from an early() event in a WF model; the output will reflect state at the beginning of the generation, not the end.`
 
 </div>
+
+### Creating New Simulations
+
+The first case takes fewer command-line arguments than the others, it simply `--define`s the parameters of the simulation (e.g. `R=1e-8`). The command-line is generated from a BASH script that depends on a SLURM environment variable, `$SLURM_ARRAY_JOB_ID`, which will control which parameter file is read by `xargs` and used to define the simulation parameters.
+
+Parameters are generated from a plaintext file originally created with `paste`. See the `parameterSet-2021-12-18.txt` file for an example. This was written before I knew R, and when I was still learning Eidos to create the SLiM model (in the afar ago year of 2019).
+
+```{bash eval=FALSE}
+cat > R
+R
+1e-7
+^D
+cat > muAP
+muAP
+1e-4
+^D
+# and so forth
+paste R muAP N m phi muCD sAP r sCD outputEveryNGenerations
+```
+
+
+```{bash}
+cat SLiM/parameterSet-2021-12-18.tsv
+```
+
+For the *reader's* convenience, an R script was written for your use.
+```{r eval=FALSE}
+library(tidyverse)
+library(glue)
+
+parameters <- list(
+  R = 1e-7,
+  muAP = 1e-4,
+  N = c(1000, 10000),
+  m = 0.001,
+  phi = 0.5,
+  muCD = 1e-8,
+  sAPValue = c(0.0625, 0.0833, 0.1, 0.1666, 0.25, 0.5),
+  r = 0.000001,
+  sCD = -0.001,
+  outputEveryNGenerations = 5000
+) %>%
+  expand.grid() %>%
+  as_tibble()
+
+glue_data(
+  .sep = "\n",
+  .x = parameters,
+  "-d R={R}",
+  "-d muAP={muAP}",
+  "-d N={N}",
+  "-d m={m}",
+  "-d phi={phi}",
+  "-d muCD={muCD}",
+  "-d sAPValue={sAPValue}",
+  "-d r={r}",
+  "-d sCD={sCD}",
+  "-d outputEveryNGenerations={outputEveryNGenerations}"
+) %>%
+  str_split(pattern = "\n") %>%
+  map2(.x = .,
+       .y = paste0("params_", 1:12),
+       ~ write_lines(x = .x, file = .y))
+
+if(!system("command -v sbatch")) {
+  system2(
+    command = "sbatch",
+    input = c(
+      "#!/bin/bash",
+      "#SBATCH --array=1-12",
+      "#SBATCH --time=06-12:00:00",
+      "#SBATCH --mem-per-cpu=9G",
+      "#SBATCH --ntasks=1",
+      "#SBATCH --no-kill",
+      '#SBATCH --job-name="APCD10Cr_EXAMPLE"',
+      "#SBATCH --mail-type=TIME_LIMIT_90,ARRAY_TASKS,FAIL",
+      "#SBATCH --mail-user=user@example.com",
+      "slim -m -l `xargs -a params_${SLURM_ARRAY_TASK_ID}` APCD10Cr-2021-12-22.slim",
+      "# To have replicates, this job should merely be submitted ten times for ease."
+    )
+  )
+} else { stop("sbatch was not found on the path.") }
+
+system2("rm", args = paste0("params_", 1:12))
+```
+
 </details>
 
 <details>
@@ -194,6 +306,28 @@ The version of SLiM that was used to generate the output on Compute Canada clust
             <p>Benjamin C Haller, Philipp W Messer,  SLiM 3: Forward Genetic Simulations Beyond the Wright–Fisher Model, <em>Molecular Biology and Evolution</em>, Volume 36, Issue 3, March 2019, Pages 632–637, <a href="https://doi.org/10.1093/molbev/msy228" data-google-interstitial="false">https://doi.org/10.1093/molbev/msy228</a></p>
         </div>
 
+# dataValidation/
+The mutation output files for every simulation included in the SQLite database and usable with the Shiny application were validated using the `assertr` and Appsilon `data.validator` packages.
+
+An HTML report was not generated for the full breadth of output, but was toyed with. The actual method used to monitor for file corruption or incompletion was the tryCatchLog dump, a log file, the Rout, and simple stderr or SLURM facilities.
+
+# RSQLite/
+The database contains the analyzed information and metadata of the mutation output files. The metadata uniquely specifies the ten replicates which compose a parameter set.
+
+The heatmaps and sojourn density data are included in the database, and are retrieved from it by the Shiny application for visualization and study.
+
+The SQLite database is stored in the Federated Research Data Repository (FRDR) along with the raw data from the research project this (GitHub) repository belongs to.
+
+> When the FRDR submission is approved, this repository will be updated with a link to it.
+
+1. `MeeCarsonYeaman2021.sh` copies `*out_Muts.txt` files from a scratch directory to node-local SSD storage and calls the R script after loading the R module in the compute environment.
+2. <code id="meecarsonyeaman2021">MeeCarsonYeaman2021.R</code> performs the analytical work on the mutations, such as estimating population statistics and stores this information in an SQLite database.
+
+# Shiny/ 
+The application does not at this time include support for exporting the R objects it accesses from the SQLite database or downloading the plots it generates from those objects.
+
+As of 2022-01-06 the method for accessing the data outside of the Shiny application is through using the functions in the [`MeeCarsonYeaman2021.R`](#rsqlite) script in an interactive R session.
+
 ## continueSimulations/
 ### Pseudocode
 1. Infer the name of the saveStates and find the last two for each simulation that needs to be completed.
@@ -211,9 +345,36 @@ The version of SLiM that was used to generate the output on Compute Canada clust
 5. Delete the last (most recent) save state file, and trim that generation's output from the indFitness and out_Muts output files.
 6. Call asynchronous processes for each command-line built and finish the simulations.
 
+### From old Rmd
+To continue a simulation from a save state, add the "outputMutationsFile", "outputIndFitnessFile", "saveStateDirectory", and "saveStateFilename" definitions (`-d[efine]`s) and `-s` (seed) to the glue that makes the command lines.
+
+```{r eval=FALSE}
+glue_data(
+  .sep = "\n",
+  .x = parameters,
+  "-d R={R}",
+  "-d muAP={muAP}",
+  "-d N={N}",
+  "-d m={m}",
+  "-d phi={phi}",
+  "-d muCD={muCD}",
+  "-d sAPValue={sAPValue}",
+  "-d r={r}",
+  "-d sCD={sCD}",
+  "-d outputEveryNGenerations={outputEveryNGenerations}",
+  "-d outputMutationsFile='validatedOutput-2022-01-01/APCD10Cr_R=1e-07_r=0.000001_muAP=0.0001_N=10000_m=0.001_phi=0.1_sCD=-0.0005_muCD=1e-08_sAP=000_Replicate=0_1698402343150_out_Muts.txt'",
+  "-d outputIndFitnessFile='validatedOutput-2022-01-01/APCD10Cr_R=1e-07_r=0.000001_muAP=0.0001_N=10000_m=0.001_phi=0.1_sCD=-0.0005_muCD=1e-08_sAP=000_Replicate=0_1698402343150_out_indFitness.txt'",
+  "-d saveStateDirectory='./saveStates100ThousandGenerations'",
+  "-d saveStateFilename='./saveStates100ThousandGenerations/APCD10Cr_R=1e-07_r=0.000001_muAP=0.0001_N=10000_m=0.001_phi=0.1_sCD=-0.0005_muCD=1e-08_sAP=000_Replicate=0_1698402343150_outputFull_Generation=100000.txt'",
+  "-s 1698402343150"
+) %>%
+  str_split(pattern = "\n") %>%
+  map2(.x = .,
+       .y = paste0("params_", 1:12),
+       ~ write_lines(x = .x, file = .y))
+```
+
 # FRDR
-These are the files published in the FRDR dataset: . Link: .
+These are the files published in the FRDR dataset: TODO: name of data publication. Link: TODO.
 
 ![screenshot_of_directory_structure_of_globus_dataset.png](globus.png)
-
-TODO: get a new top-level directory listing (just the folder names and the name of the database) for the README.md.

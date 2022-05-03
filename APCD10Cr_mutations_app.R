@@ -1,12 +1,18 @@
 # Copyright 2022 Bryce Carson
 # Author: Bryce Carson <bcars268@mtroyal.ca>
-# URL: https://github.com/bryce-carson/Carson2022
+# URL: https://github.com/bryce-carson/APCD10Cr_Carson_2022
 #
-# APCD_app.R is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# APCD_app.R is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
 #
-# APCD_app.R is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+# APCD_app.R is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+# A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with
+# this program. If not, see <https://www.gnu.org/licenses/>.
 
 library(ComplexHeatmap)
 library(DBI)
@@ -22,14 +28,17 @@ library(waiter)
 options(shiny.reactlog = TRUE)
 ht_opt$message <- FALSE
 
-db <- dbConnect(RSQLite::SQLite(), "MeeCarsonYeaman2021-12-28T21:54.db")
+## TODO: document _for the people that didn't already read it twice_ that the database is a hard requirement!
+## E.g.: ensure the database is fully downloaded before launching the app, and ensure that the db is in the same working directory as the *app.R file.
+db <- dbConnect(RSQLite::SQLite(), "APCD10Cr_mutations_app_db_created_20211228.db")
 metadata <- dbReadTable(db, "metadata")
 # DataTable cannot render blob objects, so we need to ensure that we deselect
 # them before rendering.
-metadata_pretty <- metadata %>% select(
-  -filenameList,
-  -replicates
-)
+metadata_pretty <- metadata %>%
+  select(
+    -filenameList,
+    -replicates
+  )
 
 makeAComplexHeatmap <- function(matrix, windowSize = 1) {
   offset <- 1e-8
@@ -234,8 +243,6 @@ ui <- fluidPage(
           plotOutput("sojournDensityPlot"),
           plotOutput("heatmapPopulationOne"),
           plotOutput("heatmapPopulationTwo")
-          #column(6, ),
-          #column(6, )
         )
       )))
 )

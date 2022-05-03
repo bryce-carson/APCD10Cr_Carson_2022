@@ -1,6 +1,6 @@
 # Copyright 2021 Bryce Carson
 # Author: Bryce Carson <bcars268@mtroyal.ca>
-# URL: https://github.com/bryce-carson/Carson2022
+# URL: https://github.com/bryce-carson/APCD10Cr_Carson_2022
 #
 # continueSimulations-2021-10-05-partOne.R is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 #
@@ -14,8 +14,18 @@ library(fs)
 library(data.table)
 library(stringr)
 
-## NOTE: this data took a long time to create manually, and unfortunately I have misplaced the exact code I used to create it, so it is not reproduced here.
-load("~/continueSimulations.RData")
+## NOTE: `filesToComplete` is not a object in the R environment or workspace
+## that this script runs within. The object was created from SLURM log files
+## that indicated a number of simulations experienced input–output errors during
+## the writing of output files to disk.
+##
+## The object, as the name implies, contained a list of filenames and other
+## metadata about those files which experienced the errors. The
+## `filesToComplete` object was lost during production after it was used; a list
+## of which files experienced input–output errors was not retained either,
+## however, this part of the production workflow follows an algorithm that is
+## reliable enough that the output could be repaired. For a full discussion of
+## the situation and its remedy, see the README for this repository.
 
 filenamesAndParameters <- filesToComplete %>% as_tibble() %>%
     separate(sep = "_", col = value, remove = FALSE,

@@ -1,0 +1,111 @@
+* Genotype time series
+It isn't uncommon to create a timeseries for categorical data for which an
+analysis of a continuous variable is performed for each category. An example is
+visualizing the proportion of all sales a category of food comprises, over time.
+
+| Category | Sales   | Proportion of all sales | Quarter | Delta |
+|----------+---------+-------------------------+---------+-------|
+| Organic  | $300.00 |                    0.09 |       1 | -0.13 |
+
+One row is sufficient to example the sort of data that would be visualized in
+this way.
+
+Genotypes can also be visualized this way.
+
+I will continue from where I've left off, which is loading in some data and
+playing with the functions that I was learning about for this purpose.
+
+#+begin_src R :results include
+  library(tidyverse)
+  library(udpipe)
+
+
+  load("/run/media/brycecarson/Data/APCD/validatedOutput-2021-11-05/.RData")
+
+  p1n <- p1df %>%
+    filter(selCoef != 0) %>%
+    mutate(mutation_id = unique_identifier(x = ., fields = c("position", "originGen", "originPop"))) %>%
+    group_by(outputGen) %>%
+    nest()
+
+  p1n[1, ]$data[[1]]
+
+  p1nc <- p1n %>%
+    mutate(
+      comb = list(map(
+        .x = data,
+        function(df) {
+          df$mutation_id %>%
+            combn(m = 6,
+                  simplify = FALSE)
+        }
+      )))
+
+  p1sampled <- p1nc %>% mutate(combs = list(sample(.$comb[[1]], 100)))
+  p1sampled
+
+  p1sListed <- p1sampled %>%
+    mutate(dfs =
+             list(map2(.x = data,
+                       .y = combs[[1]],
+                       .f = function(adf, blist) {
+                         filter(adf,
+                                mutation_id %in% as_vector(blist))
+                       })))
+
+  p1summarized <- p1sListed %>%
+    select(outputGen, data, combs, dfs) %>%
+    mutate(dfs = list(map(dfs[[1]], mutate, sf = selCoef * freq))) %>%
+    mutate(dfs = list(map(dfs[[1]], summarize, meanSF = mean(sf))))
+#+end_src
+
+** TODO retain the same sample of combs for every generation, and do the thing for every generation
+
+** Thoughts
+A quantitative trait with genetic redundancy, where multiple loci can contribute
+to the trait value and a trait value optimum exists, has a very large number of
+arrangements. An example quantitative trait, with tri-allelic values (±𝛉 or 𝟎),
+and twenty redundant loci has an extremely large number of genetic arrangements
+for reaching the trait optimum depending on the value of 𝛉.
+
+To observe if non-local load causes a population to change in its average
+genetic structure over time, the gene pool of the population can be sampled by
+𝐍ₑ𝐢𝛉, where 𝐢 is the number of redundant loci, and 𝛉 is the absolute
+selection-coefficient of a non-zero allele.
+
+For a quantitative trait with:
+𝐍ₑ = 10,000
+𝐢 = 20
+𝛉 = ⅙
+
+The size of the sample of the gene pool is ~33333. We don't need to calculate
+the population-scaled fitness for every genotype or take an arbitrary sample
+size, but can use this number to take an appropriate sample size to find the
+statistically relevant genotypes rather quickly.
+
+For a single population, we can reduce that number by half as well.
+
+#+begin_src R
+  p1sampled <- p1nc %>% mutate(combs = list(sample(.$comb[[1]], 16666)))
+#+end_src
+
+The next step in this analysis, now that we have an appropriate sample of the
+gene pool, is to calculate the population-scaled fitness of these genotypes and
+find the top two quartiles, to see if the population is meaningfully changing on
+a large scale. If we don't see anything, we can look at the bottom two quartiles
+to see if a smaller component of the population is changing. That would be interesting.
+
+#+begin_src R
+  p1sampled %>%
+    mutate(
+      sf = list(map2_df(
+        .x = combs,
+        .y = data
+        function(combination, dataframe) {
+          dataframe %>%
+            filter(mutation_id %in% combination) %>%
+            transmute(sf = selCoef * freq) %>%
+            summarize(fitness = sum(sf))
+            return()
+        })))
+#+end_src
