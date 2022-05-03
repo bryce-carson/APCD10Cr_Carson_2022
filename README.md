@@ -394,3 +394,5 @@ Nous remercions le Conseil de recherches en sciences naturelles et en génie du 
 ![NSERC signature in black coloured type face, with transparent background](NSERC_FIP_BLACK.png#gh-light-mode-only)
 
 </div>
+
+# References
