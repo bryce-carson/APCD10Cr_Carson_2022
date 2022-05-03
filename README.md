@@ -375,3 +375,6 @@ glue_data(
 These are the files published in the FRDR dataset: TODO: name of data publication. Link: TODO.
 
 ![screenshot_of_directory_structure_of_globus_dataset.png](globus.png)
+
+# NSERC Funding
+![NSERC signature colour-image, with transparent background](NSERC_FIP_RGB.png)
