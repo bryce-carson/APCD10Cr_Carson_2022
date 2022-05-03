@@ -49,9 +49,11 @@ Explain the titling of this markdown document...
 
 At the time of publication of the data to the Federated Research Data Repository (hereafter FRDR), the manuscript by Mee, Carson, & Yeaman describing this research is not published and is in preparation. The researchers involved in this study are listed in the table below.
 
+## Contribution details
 The title for the BioRXiv manuscript in preparation is: Mee, J.A., Carson, C., & Yeaman, S.M. (2022) *The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci*.
 
 <table>
+  <caption>The owner of this repository, Bryce Carson, is the sole author of the source code for the source files in this repository, and the sole author of the dataset linking to this repository from the FRDR (TODO: name of dataset). Data published in the FRDR was created as a research output during the method of study for a forthcoming publication by the data author and others. When the manuscript is in a pre-print archive or officially published this repository will be updated to reflect that. If you have questions related to the data published in the FRDR or this GitHub repository contact Bryce Carson (<bcars268@mtroyal.ca>).</caption>
   <tr><th>Contributor</th><th>ORCID iD</th><th>Contributor role and details</th><th>Affiliation</th></tr>
   
   <tr class="table-row">
@@ -75,14 +77,6 @@ The title for the BioRXiv manuscript in preparation is: Mee, J.A., Carson, C., &
     <td class="table-column-contributors-affiliation">University of Calgary (Associate Professor)</td>
   </tr>
 </table>
-
-## Contribution details
-The owner of this repository, Bryce Carson, is the sole author of the source code for the source files in this repository, and the sole author of the dataset linking to this repository from the FRDR (TODO: name of dataset).
-
-## Federated Research Data Repository (FRDR)
-Data published in the FRDR was created as a research output during the method of study for a forthcoming publication by the data author and others. When the manuscript is in a pre-print archive or officially published this repository will be updated to reflect that.
-
-If you have questions related to the data published in the FRDR or this GitHub repository contact Bryce Carson (<bcars268@mtroyal.ca>).
 
 # CONTENTS
 A workflow manager was not used during data production, so several scripts were written to produce, validate, and aggregate the data. Data production, validation, and aggregation are described individually in separate sections of this README.
