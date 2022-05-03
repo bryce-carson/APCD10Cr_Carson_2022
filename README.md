@@ -201,10 +201,7 @@ muAP
 paste R muAP N m phi muCD sAP r sCD outputEveryNGenerations
 ```
 
-
-```{bash}
-cat SLiM/parameterSet-2021-12-18.tsv
-```
+GitHub provides a nicely rendered view of the TSV file. View the file: [`APCD10Cr_model_20211218_parameters.tsv`](https://github.com/bryce-carson/APCD10Cr_Carson_2022/blob/main/APCD10Cr_model_20211218_parameters.tsv).
 
 For the *reader's* convenience, an R script was written for your use.
 ```{r eval=FALSE}
