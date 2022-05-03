@@ -87,8 +87,9 @@ Summarizing the whole workflow:
 3. Aggregation of the data is performed with `APCD10Cr_mutations_analysis.R`, scheduled with `APCD10Cr_mutations_analysis_job_script.sh`, and uses the R packages lock-file `APCD10Cr_mutations_analysis_renv.lock`.
 4. Visualization of aggregated data with a Shiny application (`APCD10Cr_mutations_app.R`), with the data contained in `APCD10Cr_mutations_app_db_created_20211228.db`, and an R packages lock-file `APCD10Cr_mutations_app_renv.lock`.
 
-<details><summary>File listing</summary>
-```
+<details>
+<summary>File listing</summary>
+<pre>
 APCD10Cr_Carson_2022
 .
 ├── APCD10Cr_alternation_of_genotypes
@@ -139,7 +140,7 @@ APCD10Cr_Carson_2022
 └── README.md
 
 7 directories, 39 files
-```
+</pre>
 </details>
 
 <div class=warning>
