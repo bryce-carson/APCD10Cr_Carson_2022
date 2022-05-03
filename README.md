@@ -393,3 +393,6 @@ Nous remercions le Conseil de recherches en sciences naturelles et en génie du 
 </div>
 
 # References
+<div class="oxford-citation-text">
+<p>Benjamin C Haller, Philipp W Messer,  SLiM 3: Forward Genetic Simulations Beyond the Wright–Fisher Model, <em>Molecular Biology and Evolution</em>, Volume 36, Issue 3, March 2019, Pages 632–637, <a href="https://doi.org/10.1093/molbev/msy228" data-google-interstitial="false">https://doi.org/10.1093/molbev/msy228</a></p>
+</div>
