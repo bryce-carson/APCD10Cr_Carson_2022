@@ -47,7 +47,7 @@ Explain the titling of this markdown document...
 # About this repository
 <a href="https://www.github.com/Bryce-Carson/APCD10Cr_Carson_2022">The *APCD10Cr_Carson_2022* repository</a> hosts the source code and documentation of that code used in the production of data for *The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci*, a study of local adaptation using SLiM.
 
-At the time of publication of the data to the Federated Research Data Repository (hereafter FRDR), the manuscript by Mee, Carson, & Yeaman describing this research is not published and is in preparation. The researchers involved in this study are listed in the table below.
+At the time of publication of the data to the Federated Research Data Repository (hereafter FRDR; <a href="https://www.frdr-dfdr.ca/">www.frdr-dfdr.ca</a>), the manuscript by Mee, Carson, & Yeaman describing this research is not published and is in preparation. The researchers involved in this study are listed in the table below.
 
 ## Contribution details
 The title for the BioRXiv manuscript in preparation is: Mee, J.A., Carson, C., & Yeaman, S.M. (2022) *The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci*.
@@ -378,6 +378,10 @@ These are the files published in the FRDR dataset: TODO: name of data publicatio
 ![screenshot_of_directory_structure_of_globus_dataset.png](globus.png)
 
 # NSERC Funding
+We acknowledge the support of the Natural Sciences and Engineering Research Council of Canada (NSERC).
+
+Nous remercions le Conseil de recherches en sciences naturelles et en génie du Canada (CRSNG) de son soutien.
+
 <div align="center">
 
 ![NSERC signature in white coloured type face, with transparent background](NSERC_FIP_WHITE.png#gh-dark-mode-only)
