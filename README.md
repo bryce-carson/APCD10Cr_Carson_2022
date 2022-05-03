@@ -370,6 +370,8 @@ glue_data(
 ```
 
 # FRDR
+![FRDR-FR-EN-GREY.png](FRDR-DFDR logo in greyscale with both French and English names and a transparent background)
+
 These are the files published in the FRDR dataset: TODO: name of data publication. Link: TODO.
 
 ![screenshot_of_directory_structure_of_globus_dataset.png](globus.png)
