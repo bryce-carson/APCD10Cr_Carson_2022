@@ -28,7 +28,7 @@ At the time of publication of the data to the Federated Research Data Repository
 The title for the BioRXiv manuscript in preparation is: Mee, J.A., Carson, C., & Yeaman, S.M. (2022) *The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci*.
 
 <table>
-  <caption><b>Table 1:</b> The owner of this repository, Bryce Carson, is the sole author of the source code for the source files in this repository, and the sole author of the dataset linking to this repository from the FRDR [^1]. Data published in the FRDR was created as a research output during the method of study for a forthcoming publication by the data author and others. When the manuscript is in a pre-print archive or officially published this repository will be updated to reflect that. If you have questions related to the data published in the FRDR or this GitHub repository contact Bryce Carson (<a href="mailto:bcars268@mtroyal.ca">bcars268@mtroyal.ca</a>).</caption>
+  <caption><b>Table 1:</b> The owner of this repository, Bryce Carson, is the sole author of the source code for the source files in this repository, and the sole author of the dataset linking to this repository from the FRDR [1]. Data published in the FRDR was created as a research output during the method of study for a forthcoming publication by the data author and others. When the manuscript is in a pre-print archive or officially published this repository will be updated to reflect that. If you have questions related to the data published in the FRDR or this GitHub repository contact Bryce Carson (<a href="mailto:bcars268@mtroyal.ca">bcars268@mtroyal.ca</a>).</caption>
   <tr><th>Contributor</th><th>ORCID iD</th><th>Contributor role and details</th><th>Affiliation</th></tr>
   
   <tr class="table-row">
@@ -58,7 +58,7 @@ A workflow manager was not used during data production, so several scripts were 
 
 Summarizing the whole workflow:
 
-1. Population genetic data is produced using SLiM 3[^2] with
+1. Population genetic data is produced using SLiM 3 [2] with
    `APCD10Cr_20211222.slim` as the input model, and submitted to the scheduler
    using `APCD10Cr_model_20211222_job_script.sh` which depends on temporary
    files created by `APCD10Cr_model_generate_parameter_files.sh` and
@@ -344,7 +344,7 @@ Nous remercions le Conseil de recherches en sciences naturelles et en génie du 
 
 <!-- TODO: Citation style! -->
 # References
-[^1] Raw and analyzed data for: Mee, J.A., Carson, B.A., & Yeaman, S.M. (2022) The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci. **BioRXiv** manuscript in preparation. DOI: 10.20383/102.0526.
+[1] Raw and analyzed data for: Mee, J.A., Carson, B.A., & Yeaman, S.M. (2022) The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci. **BioRXiv** manuscript in preparation. DOI: 10.20383/102.0526.
 
-[^2] Benjamin C Haller, Philipp W Messer,  SLiM 3: Forward Genetic Simulations Beyond the Wright–Fisher Model, **Molecular Biology and Evolution**, Volume 36, Issue 3, March 2019, Pages 632–637, <a href="https://doi.org/10.1093/molbev/msy228" data-google-interstitial="false">https://doi.org/10.1093/molbev/msy228</a>
+[2] Benjamin C Haller, Philipp W Messer,  SLiM 3: Forward Genetic Simulations Beyond the Wright–Fisher Model, **Molecular Biology and Evolution**, Volume 36, Issue 3, March 2019, Pages 632–637, <a href="https://doi.org/10.1093/molbev/msy228" data-google-interstitial="false">https://doi.org/10.1093/molbev/msy228</a>
 
