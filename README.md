@@ -325,23 +325,13 @@ in the Federated Research Data Repository (FRDR) along with the raw data from
 the research project this (GitHub) repository belongs to.
 
 General procedure of the `*_mutations_analysis` workflow:
-1. `APCD10Cr_mutations_analysis_job_script.sh` copies `*out_Muts.txt` files from a scratch
-   directory to node-local SSD storage and calls an R script after loading the
-   R module in the compute environment (Compute Canada clusters are managed with `lmod`).
-2. `APCD10Cr_mutations_analysis.R` performs the analytical work on the
-   mutations, such as estimating population statistics and stores this
-   information in an SQLite database.
-3. The database is moved to the home directory, and the node-local storage is
-   cleared by the SLURM scheduler after the job ends.
+1. `APCD10Cr_mutations_analysis_job_script.sh` copies `*out_Muts.txt` files from a scratch directory to node-local SSD storage and calls an R script after loading the R module in the compute environment (Compute Canada clusters are managed with `lmod`).
+2. `APCD10Cr_mutations_analysis.R` performs the analytical work on the mutations, such as estimating population statistics and stores this information in an SQLite database.
+3. The database is moved to the home directory, and the node-local storage is cleared by the SLURM scheduler after the job ends.
 
-## Shiny/ 
-The application does not at this time include support for exporting the R
-objects it accesses from the SQLite database or downloading the plots it
-generates from those objects.
+- The application does not at this time include support for exporting the R objects it accesses from the SQLite database or downloading the plots it generates from those objects.
 
-As of 2022-01-06 the method for accessing the data outside of the Shiny
-application is through using the functions in the
-[`MeeCarsonYeaman2021.R`](#rsqlite) script in an interactive R session.
+- As of 2022-01-06 the method for accessing the data outside of the Shiny application is through using the functions in the `APCD10Cr_mutations_analysis.R` script in an interactive R session.
 
 # Data publication (archival)
 The research data produced by the code in this repository is archived in the FRDR under the dataset title: Raw and analyzed data for: Mee, J.A., Carson, B.A., & Yeaman, S.M. (2022) The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci. BioRXiv manuscript in preparation.
