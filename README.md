@@ -89,6 +89,7 @@ Summarizing the whole workflow:
 
 ## Software used
 - GNU R v3.4 (though v3.3 was used at other times as well)
+  - All of the R libraries used are documented in the several `.lock` files in the repository. The lock files are named for the part of the workflow they correspond to.
 - SLiM version 3.3.2, built May 4 2020 19:43:23 (built from sources on the cluster)
 
 # Data production
