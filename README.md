@@ -59,11 +59,11 @@ A workflow manager was not used during data production, so several scripts were 
 Summarizing the whole workflow:
 
 1. Population genetic data is produced using SLiM 3 [2] with
-   `APCD10Cr_20211222.slim` as the input model, and submitted to the scheduler
+   `APCD10Cr_model_20211222.slim` as the input model, and submitted to the scheduler
    using `APCD10Cr_model_20211222_job_script.sh` which depends on temporary
    files created by `APCD10Cr_model_generate_parameter_files.sh` and
    `APCD10Cr_model_20211218_parameters.tsv`. (See the ["Data
-   production"](#Data_production) section to use an improved workflow, written
+   production"](#data-production) section to use an improved workflow, written
    specially for reproduction purposes.)
 
 2. The produced data is validated with `APCD10Cr_data_validation.R`, scheduled
@@ -92,25 +92,40 @@ Summarizing the whole workflow:
 - SLiM version 3.3.2, built May 4 2020 19:43:23 (built from sources on the cluster)
 
 # Data production
-The SLiM model script is not particularly complex, but the supporting work files may be challenging. There are three use cases of the script: new simulations; continuing existing simulations; increasing the output frequency for existing simulations.
-
 This section documents the first use–case, new simulations.
+
+The SLiM model script is not particularly complex, but the supporting work files may be challenging. There are three use cases of the script: new simulations; continuing existing simulations; increasing the output frequency for existing simulations.
 
 On a command-line, using SLiM v3.3.2, call `slim` with the `--define` command–line argument for each parameter required by the simulation.
 
-The command-line argument `--define` or `-d` sets the parameters of the simulation (such as `R=1e-8` to set the recombination rate). The full command–line to use with the model script is generated from a BASH script that depends on a SLURM environment variable, `$SLURM_ARRAY_JOB_ID`, which will control which parameter file is read by `xargs` and used to define the simulation parameters. Parameters are generated from a tsv file. See the `APCD10Cr_model_20211218_parameters.tsv` file for an example.
+The command-line argument `--define` or `-d` sets the parameters of the simulation (such as `R=1e-8` to set the recombination rate). The command–line arguments for the model are generated from a BASH script which depends on a SLURM environment variable, `$SLURM_ARRAY_JOB_ID`. The parameter file is read by `xargs` and is used to define the simulation parameters. Parameters are generated from a tsv file. See the `APCD10Cr_model_20211218_parameters.tsv` file for an example.
+
 
 | *⚠ Warning* |
 |--------------|
-| <p>The SLiM model outputs the entire model state for save files in the same event block as the custom output is generated. This was written mostly in 2019, and as such was not changed. The implication of output being at the beginning of a generation or the end was discussed and deemed not an important distinction when the frequency of output is every five thousand generations.</p><p>This creates the following warning, but can be (and was) ignored:</p><p> <code>#WARNING (SLiMSim::ExecuteMethod_outputFull): outputFull() should probably not be called from an early() event in a WF model; the output will reflect state at the beginning of the generation, not the end.</code></p> |
+| The recommended usage when reproducing data is to select a row of parameters from the `parameters.csv` file in `R`, then use that data with the provided ["Reproduction R script"](#reproduction-r-script) to generate the command-line. |
+
+
+1. Run the "Reproduction R Script" to generate 238 `params_*` files, which are read by `xargs`.
+2. Submit `APCD10Cr_model_20211222_job_script.sh` to a cluster managed by SLURM. If replicates are desired, submit the job multiple times. The job script uses an array to launch subjobs. See [Job arrays - Digital Research Alliance of Canada Wiki](https://docs.alliancecan.ca/wiki/Job_arrays) for more information.
+
+<table>
+<thead>
+  <tr>
+    <th>⚠ Warning</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><p>The SLiM model outputs the entire model state for save files in the same event block as the custom output is generated. This was written mostly in 2019, and as such was not changed. The implication of output being at the beginning of a generation or the end was discussed and deemed not an important distinction when the frequency of output is every five thousand generations.</p> <p>This creates the following warning, but can be (and was) ignored:</p> <p><code>#WARNING (SLiMSim::ExecuteMethod_outputFull): outputFull() should probably not be called from an early() event in a WF model; the output will reflect state at the beginning of the generation, not the end.</code></p></td>
+  </tr>
+</tbody>
+</table>
 
 ## Creating New Simulations
-Parameters are generated from a plaintext file originally created with `paste`.
-See the `APCD10Cr_model_20211218_parameters.tsv` file for an example. GitHub
-provides a nicely rendered view of the TSV file. View the file:
-[`APCD10Cr_model_20211218_parameters.tsv`](https://github.com/bryce-carson/APCD10Cr_Carson_2022/blob/main/APCD10Cr_model_20211218_parameters.tsv).
+Parameters are generated from a plaintext file originally created with `paste`. See the `APCD10Cr_model_20211218_parameters.tsv` file for an example of the file used internally. GitHub provides a nicely rendered view of the TSV file. View the file: [`APCD10Cr_model_20211218_parameters.tsv`](https://github.com/bryce-carson/APCD10Cr_Carson_2022/blob/main/APCD10Cr_model_20211218_parameters.tsv).
 
-```{bash eval=FALSE}
+```bash
 cat > R
 R
 1e-7
@@ -123,13 +138,17 @@ muAP
 paste R muAP N m phi muCD sAP r sCD outputEveryNGenerations
 ```
 
+---
+
+<div id="reproduction-r-script">
+### Reproduction R script
 For the *reader's* convenience, an R script was written for your use. All the parameters used throughout any simulation are contained in the `parameters.csv` file.
 
 | *⚠ Warning* |
 |---------------|
-| Unfortunately, not enough SBATCH / SLURM accounting logs exist at this time to provide those wishing to reproduce the data with information about the time and memory requirements for all the parameter combinations. However, from memory, and this script, the larger simulations with N=10000 run approximately 5.5 - 7.2 days, and require from 4 - 15GB of RAM. The smaller simulations with N=1000 typically complete in 2.5 days or less, and require no more than 5GB of RAM. |
+|Unfortunately, not enough SBATCH / SLURM accounting logs exist at this time to provide those wishing to reproduce the data with information about the time and memory requirements for all the parameter combinations. However, from memory, and this script, the larger simulations with N=10000 run approximately 5.5 - 7.2 days, and require from 4 - 15GB of RAM. The smaller simulations with N=1000 typically complete in 2.5 days or less, and require no more than 5GB of RAM.|
 
-```{r eval=FALSE}
+```R
 library(tidyverse)
 library(glue)
 
@@ -176,6 +195,8 @@ if(!system("command -v sbatch")) {
 ## system2("rm", args = paste0("params_", 1:238))
 ```
 
+
+</div>
 ## Changing output frequency
 Implemented in the SLiM workflow is the ability to continue simulations and also
 to specify the output frequency. This allows a user of the model to increase the
