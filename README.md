@@ -141,7 +141,9 @@ paste R muAP N m phi muCD sAP r sCD outputEveryNGenerations
 ---
 
 <div id="reproduction-r-script">
+
 ### Reproduction R script
+
 For the *reader's* convenience, an R script was written for your use. All the parameters used throughout any simulation are contained in the `parameters.csv` file.
 
 | *⚠ Warning* |
