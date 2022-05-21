@@ -197,8 +197,8 @@ if(!system("command -v sbatch")) {
 ## system2("rm", args = paste0("params_", 1:238))
 ```
 
-
 </div>
+
 ## Changing output frequency
 Implemented in the SLiM workflow is the ability to continue simulations and also
 to specify the output frequency. This allows a user of the model to increase the
