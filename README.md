@@ -151,8 +151,10 @@ For the *reader's* convenience, an R script was written for your use. All the pa
 |:---------------|
 |Unfortunately, not enough SBATCH / SLURM accounting logs exist at this time to provide those wishing to reproduce the data with information about the time and memory requirements for all the parameter combinations. However, from memory, and this script, the larger simulations with N=10000 run approximately 5.5 - 7.2 days, and require from 4 - 15GB of RAM. The smaller simulations with N=1000 typically complete in 2.5 days or less, and require no more than 5GB of RAM.|
 
+#### View terminal recording of `APCD10Cr_model_generate_parameter_files.R` in use
 [![asciicast](https://asciinema.org/a/499176.svg)](https://asciinema.org/a/499176)
 
+#### `APCD10Cr_model_generate_parameter_files.R`
 ```R
 library(tidyverse)
 library(glue)
