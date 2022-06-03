@@ -79,12 +79,12 @@ Summarizing the whole workflow:
    `APCD10Cr_mutations_app_db_created_20211228.db`, and an R packages lock-file
    `APCD10Cr_mutations_app_renv.lock`.
 
-| *⚠ Warning* |
-|--------------|
+| **⚠ Warning** |
+|:--------------|
 | Use the R function `renv::load`, from the `renv` package, to load the lock-file for each R workflow (the name of the lock file is named for the workflow; e.g. continue_sims, data_validation, and so on). Lockfiles specify the packages (and versions and dependencies thereof) used in the project regardless of machine or architecture. See the vignette for renv and the talk at rstudio::conf 2020 for more information on and an introduction to renv. |
 
-| *⚠ Warning* |
-|--------------|
+| **⚠ Warning** |
+|:--------------|
 | Paths and filenames were refactored to assist in reproduction. Where relevant, the variables or file-names referred to in source files have been documented. During reproduction, editing the files may still be necessary to ensure that files are found in the expected places; it is recommended to study the source files before attempting reproduction following the instructions in this repository. |
 
 ## Software used
@@ -102,8 +102,8 @@ On a command-line, using SLiM v3.3.2, call `slim` with the `--define` command–
 The command-line argument `--define` or `-d` sets the parameters of the simulation (such as `R=1e-8` to set the recombination rate). The command–line arguments for the model are generated from a BASH script which depends on a SLURM environment variable, `$SLURM_ARRAY_JOB_ID`. The parameter file is read by `xargs` and is used to define the simulation parameters. Parameters are generated from a tsv file. See the `APCD10Cr_model_20211218_parameters.tsv` file for an example.
 
 
-| *⚠ Warning* |
-|--------------|
+| **⚠ Warning** |
+|:--------------|
 | The recommended usage when reproducing data is to select a row of parameters from the `parameters.csv` file in `R`, then use that data with the provided ["Reproduction R script"](#reproduction-r-script) to generate the command-line. |
 
 
@@ -113,7 +113,7 @@ The command-line argument `--define` or `-d` sets the parameters of the simulati
 <table>
 <thead>
   <tr>
-    <th>⚠ Warning</th>
+    <th align="left"><bold>⚠ Warning</bold></th>
   </tr>
 </thead>
 <tbody>
@@ -147,9 +147,11 @@ paste R muAP N m phi muCD sAP r sCD outputEveryNGenerations
 
 For the *reader's* convenience, an R script was written for your use. All the parameters used throughout any simulation are contained in the `parameters.csv` file.
 
-| *⚠ Warning* |
-|---------------|
+| **⚠ Warning** |
+|:---------------|
 |Unfortunately, not enough SBATCH / SLURM accounting logs exist at this time to provide those wishing to reproduce the data with information about the time and memory requirements for all the parameter combinations. However, from memory, and this script, the larger simulations with N=10000 run approximately 5.5 - 7.2 days, and require from 4 - 15GB of RAM. The smaller simulations with N=1000 typically complete in 2.5 days or less, and require no more than 5GB of RAM.|
+
+[![asciicast](https://asciinema.org/a/499176.svg)](https://asciinema.org/a/499176)
 
 ```R
 library(tidyverse)
@@ -160,16 +162,23 @@ parameters <- read_csv("parameters.csv") %>% as_tibble() %>% mutate(outputEveryN
 glue_data(
   .x = parameters,
   .sep = "\n",
-  "-d R={intraR}",
-  "-d r={interR}",
-  "-d muAP={muAP}",
-  "-d muCD={muCD}",
-  "-d N={N}",
-  "-d m={m}",
-  "-d phi={phi}",
-  "-d sCD={sCD}",
-  "-d sAPValue={sAP}",
-  "-d outputEveryNGenerations={outputEveryNGenerations}"
+  "-d R={intraR}", # intra-gene recombination rate (recombination rate between base pairs within genes)
+  "-d r={interR}", # inter-gene recombination rate (recombination rate between genes)
+  "-d muAP={muAP}", # mutation rate of alleles with antagonistic pleiotropy
+  "-d muCD={muCD}", # mutation rate of alleles with conditional neutrality
+  "-d N={N}", # Population size
+  "-d m={m}", # migration rate
+
+  ## Selection
+  "-d phi={phi}", ## 1 - phi*(((theta1 - zAP)/2*theta1)^gamma);
+                  ## zAP = individual.sumOfMutationsOfType(m4); # sum of the effect size of AP alleles
+                  ## defineConstant("gamma", 2); //Curvature
+                  ## defineConstant("theta1", -1.0); //Phenotypic optimum one
+                  ## defineConstant("theta2", 1.0); //Phenotypic optimum two
+
+  "-d sCD={sCD}", # selection coefficient of alleles with conditional neutrality
+  "-d sAPValue={sAP}", # selection coefficient of alleles with antagonistic pleiotropy
+  "-d outputEveryNGenerations={outputEveryNGenerations}" # frequency of simulation output
 ) %>%
   str_split(pattern = "\n") %>%
   map2(.x = .,
@@ -228,8 +237,8 @@ can be found, and the output directory where mutation and individual fitness
 output files can be found. Pseudocode for how simulations were continued is
 provided in the next below.
 
-| *⚠ Warning* |
-|--------------|
+| **⚠ Warning** |
+|:--------------|
 | <p>The `*_continue_sims_*` files were used to complete a small number of simulations that had corrupted output at later stages due to filesystem-io errors. The former situation, filesystem-io errors, needed a different solution because the last output generation could not be assured to be completely-output, so the last generation was deleted from the output file and the previous generation save state loaded to resimulate the generations preceeding the error and until completion.</p><p>The scripting for continuing simulations that failed due to memory or time constraints on the computing clusters were ad-hoc and used the logging from SLiM (`-l`), BASH, and some `grep`ing to collect together the necessary information: what simulations failed?; what are the parameters of the failed simulations?; where are the output files?; etc. With that information simulations were completed in that situation.</p><p>This does not impact the normal flow of continuing simulations.</p> |
 
 ### Pseudocode
@@ -248,8 +257,8 @@ provided in the next below.
    - a `-d outputMutationsFile=FILE` argument
    - a `-d outputIndFitnessFile=FILE` argument
 
-   | *⚠ Warning* |
-   |---------------|
+   | **⚠ Warning** |
+   |:---------------|
    | This step requires modifying the SLiM model to include a condition that will set the path for the two calls of `writeFile()` and the call of `outputFull()` to the paths specified on the command-line. |
 
 4. Create a backup of the files that will be worked on, in case of progammer error.
@@ -308,8 +317,8 @@ slim -l \ #Enable verbose logging to standard output
   APCD10Cr_model_20211222.slim
 ```
 
-| *⚠ Warning* |
-|--------------|
+| **⚠ Warning** |
+|:--------------|
 | SLiM handles command-line arguments in several ways. Sometimes a number can be taken in as a string from the command-line, and other times it cannot be. You should study the SLiM manual and be familiar with shell escape sequences and peculiarities for your shell and command environment before launching commands. |
 
 # Data visualization
