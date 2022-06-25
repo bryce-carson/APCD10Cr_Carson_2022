@@ -221,36 +221,35 @@ s3 100000 {
   lm3p2 = p2.individuals.countOfMutationsOfType(m3);
   lm4p2 = p2.individuals.countOfMutationsOfType(m4);
 
-  out_ID = "RUN_id " + "replicate " + "pop " + "id " + "migrant " + "fitness " + "n_m2 " + "n_m3 " + "n_m4 " + "outputGen";
-  out_IDs1 = simID + " " + REP + " p1 " + indexID1 + " " + ind1.migrant + " " + p1_fit + " " + lm2p1 + " " + lm3p1 + " " + lm4p1 + " " + sim.generation;
-  out_IDs2 = simID + " " + REP + " p2 " + indexID2 + " " + ind2.migrant + " " + p2_fit + " " + lm2p2 + " " + lm3p2 + " " + lm4p2 + " " + sim.generation;
+  out_ID   = paste("RUN_id", "replicate", "pop", "id",     "migrant",    "fitness", "n_m2", "n_m3", "n_m4", "outputGen",    sep = " ");
+  out_IDs1 = paste(simID,    REP,         "p1",  indexID1, ind1.migrant, p1_fit,    lm2p1,  lm3p1,  lm4p1,  sim.generation, sep = " ");
+  out_IDs2 = paste(simID,    REP,         "p2",  indexID2, ind2.migrant, p2_fit,    lm2p2,  lm3p2,  lm4p2,  sim.generation, sep = " ");
 
   //Getting genomes information
-  g = sim.subpopulations.genomes;
-  CD12 = sortBy(unique(c(g.mutationsOfType(m2))), "position");
-  CD21 = sortBy(unique(c(g.mutationsOfType(m3))), "position");
-  AP = sortBy(unique(c(g.mutationsOfType(m4))), "position");
+  g           = sim.subpopulations.genomes;
+  CD12        = sortBy(unique(c(g.mutationsOfType(m2))), "position");
+  CD21        = sortBy(unique(c(g.mutationsOfType(m3))), "position");
+  AP          = sortBy(unique(c(g.mutationsOfType(m4))), "position");
   CD12p1_freq = sim.mutationFrequencies(p1, CD12);
   CD21p1_freq = sim.mutationFrequencies(p1, CD21);
-  APp1_freq = sim.mutationFrequencies(p1, AP);
+  APp1_freq   = sim.mutationFrequencies(p1, AP);
   CD12p2_freq = sim.mutationFrequencies(p2, CD12);
   CD21p2_freq = sim.mutationFrequencies(p2, CD21);
-  APp2_freq = sim.mutationFrequencies(p2, AP);
+  APp2_freq   = sim.mutationFrequencies(p2, AP);
 
-  out_CD12 = "RUN_id " + "replicate " + "population " + "type " + "descrip " + "position " + "originGen " + "originPop " + "selCoef " + "freq " + "outputGen";
-  out_CD12p1 = simID + " " + REP + " p1 " + "m2 " + "CD " + CD12.position + " " + CD12.originGeneration + " " + CD12.subpopID + " " + CD12.selectionCoeff + " " + CD12p1_freq + " " + sim.generation;
-  out_CD21p1 = simID + " " + REP + " p1 " + "m3 " + "CD " + CD21.position + " " + CD21.originGeneration + " " + CD21.subpopID + " " + CD21.selectionCoeff + " " + CD21p1_freq + " " + sim.generation;
-  out_APp1 = simID + " " + REP + " p1 " + "m4 " + "AP " + AP.position + " " + AP.originGeneration + " " + AP.subpopID + " " + AP.selectionCoeff + " " + APp1_freq + " " + sim.generation;
-
-  out_CD12p2 = simID + " " + REP + " p2 " + "m2 " + "CD " + CD12.position + " " + CD12.originGeneration + " " + CD12.subpopID + " " + CD12.selectionCoeff + " " + CD12p2_freq + " " + sim.generation;
-  out_CD21p2 = simID + " " + REP + " p2 " + "m3 " + "CD " + CD21.position + " " + CD21.originGeneration + " " + CD21.subpopID + " " + CD21.selectionCoeff + " " + CD21p2_freq + " " + sim.generation;
-  out_APp2 = simID + " " + REP + " p2 " + "m4 " + "AP " + AP.position + " " + AP.originGeneration + " " + AP.subpopID + " " + AP.selectionCoeff + " " + APp2_freq + " " + sim.generation;
+  out_CD12   = paste("RUN_id", "replicate", "population", "type", "descrip", "position",    "originGen",           "originPop",   "selCoef",           "freq",      "outputGen",    sep = " ");
+  out_CD12p1 = paste(simID,    REP,         "p1",         "m2",   "CD",      CD12.position, CD12.originGeneration, CD12.subpopID, CD12.selectionCoeff, CD12p1_freq, sim.generation, sep = " ");
+  out_CD21p1 = paste(simID,    REP,         "p1",         "m3",   "CD",      CD21.position, CD21.originGeneration, CD21.subpopID, CD21.selectionCoeff, CD21p1_freq, sim.generation, sep = " ");
+  out_APp1   = paste(simID,    REP,         "p1",         "m4",   "AP",      AP.position,   AP.originGeneration,   AP.subpopID,   AP.selectionCoeff,   APp1_freq,   sim.generation, sep = " ");
+  out_CD12p2 = paste(simID,    REP,         "p2",         "m2",   "CD",      CD12.position, CD12.originGeneration, CD12.subpopID, CD12.selectionCoeff, CD12p2_freq, sim.generation, sep = " ");
+  out_CD21p2 = paste(simID,    REP,         "p2",         "m3",   "CD",      CD21.position, CD21.originGeneration, CD21.subpopID, CD21.selectionCoeff, CD21p2_freq, sim.generation, sep = " ");
+  out_APp2   = paste(simID,    REP,         "p2",         "m4",   "AP",      AP.position,   AP.originGeneration,   AP.subpopID,   AP.selectionCoeff,   APp2_freq,   sim.generation, sep = " ");
 
   //Save the simulation state at this point of the simulation and append outputs.
   if(exists("useDefaultPath") == T) {
-    sim.outputFull(filePath = paste(c(pathOUT, saveStateDirectory, PREFIX, "_R=", R, "_r=", r, "_muAP=", muAP, "_N=", N, "_m=", m, "_phi=", phi, "_sCD=", sCD, "_muCD=", muCD, "_sAP=", sAP, "_Replicate=", REP, "_", simID, "_outputFull_Generation=", sim.generation, ".txt"), sep=""));
-    writeFile(filePath = paste(c(pathOUT, outputDataDirectory, PREFIX, "_R=", R, "_r=", r, "_muAP=", muAP, "_N=", N, "_m=", m, "_phi=", phi, "_sCD=", sCD, "_muCD=", muCD, "_sAP=", sAP, "_Replicate=", REP, "_", simID, "_out_indFitness.txt"), sep=""), contents = c(out_ID, out_IDs1, out_IDs2), append=T);
-    writeFile(filePath = paste(c(pathOUT, outputDataDirectory, PREFIX, "_R=", R, "_r=", r, "_muAP=", muAP, "_N=", N, "_m=", m, "_phi=", phi, "_sCD=", sCD, "_muCD=", muCD, "_sAP=", sAP, "_Replicate=", REP, "_", simID, "_out_Muts.txt"), sep=""), contents = c(out_CD12, out_CD12p1, out_CD21p1, out_APp1, out_CD12p2, out_CD21p2, out_APp2), append=T);
+    sim.outputFull(filePath = paste(c(pathOUT, saveStateDirectory,  PREFIX, "_R=", R, "_r=", r, "_muAP=", muAP, "_N=", N, "_m=", m, "_phi=", phi, "_sCD=", sCD, "_muCD=", muCD, "_sAP=", sAP, "_Replicate=", REP, "_", simID, "_outputFull_Generation=", sim.generation, ".txt"), sep=""));
+    writeFile(     filePath = paste(c(pathOUT, outputDataDirectory, PREFIX, "_R=", R, "_r=", r, "_muAP=", muAP, "_N=", N, "_m=", m, "_phi=", phi, "_sCD=", sCD, "_muCD=", muCD, "_sAP=", sAP, "_Replicate=", REP, "_", simID, "_out_indFitness.txt"), sep=""), contents = c(out_ID, out_IDs1, out_IDs2),                                                   append=T);
+    writeFile(     filePath = paste(c(pathOUT, outputDataDirectory, PREFIX, "_R=", R, "_r=", r, "_muAP=", muAP, "_N=", N, "_m=", m, "_phi=", phi, "_sCD=", sCD, "_muCD=", muCD, "_sAP=", sAP, "_Replicate=", REP, "_", simID, "_out_Muts.txt"),       sep=""), contents = c(out_CD12, out_CD12p1, out_CD21p1, out_APp1, out_CD12p2, out_CD21p2, out_APp2), append=T);
   } else {
     /* When the filepaths are specified on the command-line, the dirname of the
      filepath for outputFull is used, so that `sim.generation` is still called
@@ -262,7 +261,7 @@ s3 100000 {
      written in writeFile as `sAP=-0.500.5`. saveStateFilename is here
      just the dirname of the file, not the whole filepath.*/
     sim.outputFull(filePath = paste(c(saveStateDirectory, PREFIX, "_R=", R, "_r=", r, "_muAP=", muAP, "_N=", N, "_m=", m, "_phi=", phi, "_sCD=", sCD, "_muCD=", muCD, "_sAP=", sAP, "_Replicate=", REP, "_", simID, "_outputFull_Generation=", sim.generation, ".txt"), sep=""));
-    writeFile(filePath = outputIndFitnessFile, contents = c(out_ID, out_IDs1, out_IDs2), append=T);
-    writeFile(filePath = outputMutationsFile, contents = c(out_CD12, out_CD12p1, out_CD21p1, out_APp1, out_CD12p2, out_CD21p2, out_APp2), append=T);
+    writeFile(     filePath = outputIndFitnessFile, contents = c(out_ID, out_IDs1, out_IDs2),                                                   append=T);
+    writeFile(     filePath = outputMutationsFile,  contents = c(out_CD12, out_CD12p1, out_CD21p1, out_APp1, out_CD12p2, out_CD21p2, out_APp2), append=T);
   }
 }
