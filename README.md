@@ -1,14 +1,3 @@
-<!-- # TODO: -->
-<!-- 1. Identify all cases of absolute file paths and environment variable dependent paths. -->
-<!-- 2. Document identified paths which cannot be handled defensively. -->
-<!-- 3. & more! -->
-
-<!-- # Directories -->
-<!-- ``` -->
-<!-- $HOME/scratch/Output -->
-<!-- $HOME/scratch/Output/n{One,Ten}Thousand{OutputData,saveStates} -->
-<!-- ``` -->
-
 <div align="center">
 <h2>APCD10Cr</h2>
 <h4>SLiM 3 outputs of in silico local adaptation with conditonally deleterious mutations and antagonistic pleiotropy in a two-deme model</h4>
@@ -352,12 +341,8 @@ Nous remercions le Conseil de recherches en sciences naturelles et en génie du 
 
 </div>
 
-<!-- TODO: Citation style! -->
 # References
 
 [1] Carson, B. (2022). SLiM 3 outputs of in silico local adaptation with conditonally deleterious mutations and antagonistic pleiotropy in a two-deme model. <https://doi.org/10.20383/102.0526>.
 
 [2] Benjamin C Haller, Philipp W Messer,  SLiM 3: Forward Genetic Simulations Beyond the Wright–Fisher Model, **Molecular Biology and Evolution**, Volume 36, Issue 3, March 2019, Pages 632–637, <a href="https://doi.org/10.1093/molbev/msy228" data-google-interstitial="false">https://doi.org/10.1093/molbev/msy228</a>
-
-<!-- Refernce-style linking to improve readability of the Markdown file itself. -->
-[line-249]: https://github.com/bryce-carson/APCD10Cr_Carson_2022/blob/9861a08a74e2818609b4ec060e17e2683312f3a8/APCD10Cr_model_20211222.slim#L249-L268
