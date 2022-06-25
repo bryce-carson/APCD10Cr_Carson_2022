@@ -14,7 +14,7 @@ library(fs)
 library(data.table)
 library(stringr)
 
-## NOTE: `filesToComplete` is not a object in the R environment or workspace
+## NOTE: `filesToComplete` is not an object in the R environment or workspace
 ## that this script runs within. The object was created from SLURM log files
 ## that indicated a number of simulations experienced input–output errors during
 ## the writing of output files to disk.
@@ -34,6 +34,9 @@ filenamesAndParameters <- filesToComplete %>% as_tibble() %>%
     map_at(.at = c("intraR", "interR", "muAP", "N", "m", "phi",
                    "sCD", "muCD", "sAP"),
            str_extract, pattern = "[^[[:alpha:]]=](.*)$") %>%
+  ## NOTE: The `pattern` argument (`"00."`) is used to split up the older sAP
+  ## parameter key and its meaningful value. See the full discussion of sAP and
+  ## sAPValue in the `README.md` file.
     map_at("sAP", str_split, pattern = "00.") %>%
     map_at("sAP", map, first) %>%
     map_at("sAP", as_vector) %>%

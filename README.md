@@ -27,7 +27,7 @@ The dataset produced by the code in this repository is hosted on the Federated R
 >
 > Data author: Carson, Bryce
 >
-> DOI:
+> DOI: <https://doi.org/10.20383/102.0526>
     
 ## Publication and contribution details
 At the time of publication of the data to the Federated Research Data Repository (hereafter FRDR; <a href="https://www.frdr-dfdr.ca/">www.frdr-dfdr.ca</a>), the manuscript by Mee, Carson, & Yeaman describing this research is not published and is in preparation; a preprint manuscript will be published to BioRXiv when ready. The title for the BioRXiv manuscript in preparation is: Mee, J.A., Carson, C., & Yeaman, S.M. (2022) *The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci*. The researchers involved in this study are listed in the table below.
@@ -354,7 +354,8 @@ Nous remercions le Conseil de recherches en sciences naturelles et en génie du 
 
 <!-- TODO: Citation style! -->
 # References
-[1] Raw and analyzed data for: Mee, J.A., Carson, B.A., & Yeaman, S.M. (2022) The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci. **BioRXiv** manuscript in preparation. DOI: 10.20383/102.0526.
+
+[1] Carson, B. (2022). SLiM 3 outputs of in silico local adaptation with conditonally deleterious mutations and antagonistic pleiotropy in a two-deme model. <https://doi.org/10.20383/102.0526>.
 
 [2] Benjamin C Haller, Philipp W Messer,  SLiM 3: Forward Genetic Simulations Beyond the Wright–Fisher Model, **Molecular Biology and Evolution**, Volume 36, Issue 3, March 2019, Pages 632–637, <a href="https://doi.org/10.1093/molbev/msy228" data-google-interstitial="false">https://doi.org/10.1093/molbev/msy228</a>
 
