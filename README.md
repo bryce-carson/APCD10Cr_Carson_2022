@@ -100,7 +100,7 @@ A workflow manager like `targets` or `snakemake` was not used, so several script
   - All of the R libraries used are documented in the several `.lock` files in the repository. The lock files are named alike the R scripts they should be consumed by. Use `renv::load()` with a lock file to load one.
 - SLiM version 3.3.2, built May 4 2020 19:43:23 (built from sources on the cluster)
 
-# TODO: Data production
+# Data production
 The SLiM model script is not particularly complex, but the supporting work files may be challenging. There are three use cases of the script: new simulations; continuing existing simulations; increasing the output frequency for existing simulations.
 
 On a command-line, using SLiM v3.3.2, call `slim` with the `--define` command–line argument for each parameter required by the simulation.
