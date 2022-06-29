@@ -295,7 +295,7 @@ slim -l                           \ # Enable verbose logging to standard output
 |:------------|
 | SLiM handles command-line arguments in several ways. Sometimes a number can be taken in as a string from the command-line, and other times it cannot be. You should study the SLiM manual and be familiar with shell escape sequences and peculiarities for your shell and command environment before launching commands. |
 
-| ** Warning** |
+| **Warning** |
 |:--------------|
 | <p>The `*_continue_sims_*` files were used to complete a small number of simulations that had corrupted output at later stages due to filesystem-io errors. The former situation, filesystem-io errors, needed a different solution because the last output generation could not be assured to be completely-output, so the last generation was deleted from the output file and the previous generation save state loaded to resimulate the generations preceeding the error and until completion.</p><p>The scripting for continuing simulations that failed due to memory or time constraints on the computing clusters were ad-hoc and used the logging from SLiM (`-l`), BASH, and some `grep`ing to collect together the necessary information: what simulations failed?; what are the parameters of the failed simulations?; where are the output files?; etc. With that information simulations were completed in that situation.</p><p>This does not impact the normal flow of continuing simulations.</p> |
 
