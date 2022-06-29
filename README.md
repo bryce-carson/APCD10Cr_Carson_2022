@@ -10,12 +10,12 @@
 
 APCD10Cr is an abbreviation for: Antagonistic Pleiotropy & Conditionally Deleterious Mutations (with ten chromosomes). This was the name I used internally while producing the code.
 
-The dataset produced by the code in this repository is hosted on the Federated Research Data Repository, under the dataset title (see trailing DOI or [references](#references) for a hyperlink):
+The dataset produced by the code in this repository is hosted on the Federated Research Data Repository, under the dataset title:
 
-> SLiM 3 outputs of in silico local adaptation with conditonally deleterious mutations and antagonistic pleiotropy in a two-deme model.
->
-> Data author: Carson, Bryce
->
+> SLiM 3 outputs of in silico local adaptation with conditonally deleterious mutations and antagonistic pleiotropy in a two-deme model
+
+Follow the below DOI or the [reference](#references) in the bibliography/references section for a hyperlink.
+
 > DOI: <https://doi.org/10.20383/102.0526>
     
 ## Publication and contribution details
@@ -320,7 +320,7 @@ General procedure of the `*_mutations_analysis` workflow:
 - The application does not at this time include support for exporting the R objects it accesses from the SQLite database or downloading the plots it generates from those objects.
 
 # Data archival
-The research data produced by the code in this repository is archived in the FRDR under the dataset title: Raw and analyzed data for: Mee, J.A., Carson, B.A., & Yeaman, S.M. (2022) The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci. BioRXiv manuscript in preparation.
+The research data produced by the code in this repository is archived in the FRDR under the dataset title: SLiM 3 outputs of in silico local adaptation with conditonally deleterious mutations and antagonistic pleiotropy in a two-deme model. DOI: <https://doi.org/10.20383/102.0526>.
 
 <div align="center">
 
