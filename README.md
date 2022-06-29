@@ -260,7 +260,7 @@ provided below.
    | **Note**                                                                                                                                                                                    |
    |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
    | This step required modifying the SLiM model to include logic setting the path for the two calls of `writeFile()` and the call of `outputFull()` to the paths specified on the command-line. |
-   | See [lines 249 through 265][line-249] of the SLiM model for a comment on this alternative output logic in the model.                                                                        |
+   | See [lines 248 through 266][line-248] of the SLiM model for a comment on this alternative output logic in the model.                                                                        |
 
 4. Create a backup of the files that will be worked on, in case of progammer error.
 5. Delete the last (most recent) save state file, and trim that generation's
@@ -346,3 +346,5 @@ Nous remercions le Conseil de recherches en sciences naturelles et en génie du 
 [1] Carson, B. (2022). SLiM 3 outputs of in silico local adaptation with conditonally deleterious mutations and antagonistic pleiotropy in a two-deme model. <https://doi.org/10.20383/102.0526>.
 
 [2] Benjamin C Haller, Philipp W Messer,  SLiM 3: Forward Genetic Simulations Beyond the Wright–Fisher Model, **Molecular Biology and Evolution**, Volume 36, Issue 3, March 2019, Pages 632–637, <a href="https://doi.org/10.1093/molbev/msy228" data-google-interstitial="false">https://doi.org/10.1093/molbev/msy228</a>
+
+[line-248]: https://github.com/bryce-carson/APCD10Cr_Carson_2022/blob/bc76e7a0bab64cac302e70335937e037e7ffa1b0/APCD10Cr_model_20211222.slim#L248-L266
