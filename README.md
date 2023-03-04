@@ -6,7 +6,7 @@
 </div>
 
 # About this repository
-<a href="https://www.github.com/Bryce-Carson/APCD10Cr_Carson_2022">The <code>APCD10Cr_Carson_2022</code> repository</a> hosts the source code used in the production of data for a paper in preparation titled: *The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci*.
+<a href="https://www.github.com/Bryce-Carson/APCD10Cr_Carson_2022">The <code>APCD10Cr_Carson_2022</code> repository</a> hosts a portion of the source code used in the production of data for a paper in preparation: *Mee, J.A., Carson, C., & Yeaman, S. (2023) Conditionally deleterious mutation load accumulates in genomic islands but can be purged with sufficient genotypic redundancy*.
 
 APCD10Cr is an abbreviation for: Antagonistic Pleiotropy & Conditionally Deleterious Mutations (with ten chromosomes). This was the name I used internally while producing the code.
 
