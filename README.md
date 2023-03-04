@@ -18,7 +18,11 @@ Follow the below DOI or the [reference](#references) in the bibliography/referen
 
 > DOI: <https://doi.org/10.20383/102.0526>
 
-The code in this repository is archived on Zenodo, with a DOI which will be registered automatically upon automatic release-detection and will then be included in this README.
+The code in this repository is archived on Zenodo. Follow the DOI badge link below to navigate to the code archival.
+
+[![DOI](https://zenodo.org/badge/445970907.svg)](https://zenodo.org/badge/latestdoi/445970907)
+
+> DOI: <https://doi.org/10.5281/zenodo.7697492>
     
 ## Publication and contribution details
 At the time of publication of the data to the Federated Research Data Repository (hereafter FRDR; <a href="https://www.frdr-dfdr.ca/">www.frdr-dfdr.ca</a>), the manuscript by Mee, Carson, & Yeaman describing this research is not published and is in preparation; a preprint manuscript will be published to BioRXiv when ready. The title for the BioRXiv manuscript in preparation is: Mee, J.A., Carson, C., & Yeaman, S. (2023) *Conditionally deleterious mutation load accumulates in genomic islands but can be purged with sufficient genotypic redundancy*. The researchers involved in this study are listed in the table below.
@@ -258,6 +262,7 @@ provided below.
      simulation
    - a `-d outputMutationsFile=FILE` argument
    - a `-d outputIndFitnessFile=FILE` argument
+[![DOI](https://zenodo.org/badge/445970907.svg)](https://zenodo.org/badge/latestdoi/445970907)
 
    | **Note**                                                                                                                                                                                    |
    |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -322,7 +327,11 @@ General procedure of the `*_mutations_analysis` workflow:
 - The application does not at this time include support for exporting the R objects it accesses from the SQLite database or downloading the plots it generates from those objects.
 
 # Code archival
-The code produced as part of this research activity is being archived on Zenodo. Once Zenodo automatically detects the re-release of this software, it will download the release in ZIP and TAR formats, archiving them, and registering a DOI which will be included in a subsequent edit of this README.
+The code produced as part of this research activity is archived on Zenodo. Follow either link below to navigate to the code archive.
+
+[![DOI](https://zenodo.org/badge/445970907.svg)](https://zenodo.org/badge/latestdoi/445970907)
+
+> DOI: <https://doi.org/10.5281/zenodo.7697492>
 
 # Data archival
 The research data produced by the code in this repository is archived in the FRDR under the dataset title: SLiM 3 outputs of in silico local adaptation with conditonally deleterious mutations and antagonistic pleiotropy in a two-deme model. DOI: <https://doi.org/10.20383/102.0526>.
