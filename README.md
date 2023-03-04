@@ -17,12 +17,14 @@ The dataset produced by the code in this repository is hosted on the Federated R
 Follow the below DOI or the [reference](#references) in the bibliography/references section for a hyperlink.
 
 > DOI: <https://doi.org/10.20383/102.0526>
+
+The code in this repository is archived on Zenodo, with a DOI which will be registered automatically upon automatic release-detection and will then be included in this README.
     
 ## Publication and contribution details
-At the time of publication of the data to the Federated Research Data Repository (hereafter FRDR; <a href="https://www.frdr-dfdr.ca/">www.frdr-dfdr.ca</a>), the manuscript by Mee, Carson, & Yeaman describing this research is not published and is in preparation; a preprint manuscript will be published to BioRXiv when ready. The title for the BioRXiv manuscript in preparation is: Mee, J.A., Carson, C., & Yeaman, S.M. (2022) *The accumulation of conditionally deleterious mutational load is augmented in regions linked to adaptive loci*. The researchers involved in this study are listed in the table below.
+At the time of publication of the data to the Federated Research Data Repository (hereafter FRDR; <a href="https://www.frdr-dfdr.ca/">www.frdr-dfdr.ca</a>), the manuscript by Mee, Carson, & Yeaman describing this research is not published and is in preparation; a preprint manuscript will be published to BioRXiv when ready. The title for the BioRXiv manuscript in preparation is: Mee, J.A., Carson, C., & Yeaman, S. (2023) *Conditionally deleterious mutation load accumulates in genomic islands but can be purged with sufficient genotypic redundancy*. The researchers involved in this study are listed in the table below.
 
 <table>
-  <caption><b>Table 1:</b> The owner of this repository, Bryce Carson, is the sole author of the source code for the source files in this repository, and the sole author of the dataset linking to this repository from the FRDR [1]. Data published in the FRDR was created as a research output during the method of study for a forthcoming publication by the data author and others. When the manuscript is in a pre-print archive or officially published this repository will be updated to reflect that. If you have questions related to the data published in the FRDR or this GitHub repository contact Bryce Carson (<a href="mailto:bcars268@mtroyal.ca">bcars268@mtroyal.ca</a>).</caption>
+  <caption><b>Table 1:</b> The owner of this repository, Bryce Carson, is the sole author of the source code for the source files in this repository, and the sole author of the dataset linking to this repository from the FRDR [1]. Data published in the FRDR was created as a research output during the method of study for a forthcoming publication by the data author and others. When the manuscript is in a pre-print archive or officially published, this repository will be updated to reflect that. If you have questions related to the data published in the FRDR or this GitHub repository, contact Bryce Carson (<a href="mailto:bcars268@mtroyal.ca">bcars268@mtroyal.ca</a>).</caption>
   <tr><th>Contributor</th><th>ORCID iD</th><th>Contributor role and details</th><th>Affiliation</th></tr>
   
   <tr class="table-row">
@@ -318,6 +320,9 @@ General procedure of the `*_mutations_analysis` workflow:
 3. The database is moved to the home directory, and the node-local storage is cleared by the SLURM scheduler after the job ends.
 
 - The application does not at this time include support for exporting the R objects it accesses from the SQLite database or downloading the plots it generates from those objects.
+
+# Code archival
+The code produced as part of this research activity is being archived on Zenodo. Once Zenodo automatically detects the re-release of this software, it will download the release in ZIP and TAR formats, archiving them, and registering a DOI which will be included in a subsequent edit of this README.
 
 # Data archival
 The research data produced by the code in this repository is archived in the FRDR under the dataset title: SLiM 3 outputs of in silico local adaptation with conditonally deleterious mutations and antagonistic pleiotropy in a two-deme model. DOI: <https://doi.org/10.20383/102.0526>.
