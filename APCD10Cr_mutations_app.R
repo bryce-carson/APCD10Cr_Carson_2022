@@ -2,12 +2,12 @@
 # Author: Bryce Carson <bcars268@mtroyal.ca>
 # URL: https://github.com/bryce-carson/APCD10Cr_Carson_2022
 #
-# APCD_app.R is free software: you can redistribute it and/or modify it under
+# APCD10Cr_mutations_app.R is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
 # Foundation, either version 3 of the License, or (at your option) any later
 # version.
 #
-# APCD_app.R is distributed in the hope that it will be useful, but WITHOUT ANY
+# APCD10Cr_mutations_app.R is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 # A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #

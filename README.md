@@ -68,6 +68,8 @@ A workflow manager was not used during data production, so several scripts were 
 
 A workflow manager like `targets` or `snakemake` was not used, so several scripts were written for the stages of production, validation, and analysis.
 
+[renv](https://cran.r-project.org/package=renv) is a "dependency management toolkit for R," and helps to automatically install packages listed in the json-like `.lock` files contained in the repository. *Note*: the `.lock` files are human-readable.
+
 1. Population genetic data is produced using SLiM 3 [2] with
    `APCD10Cr_model_20211222.slim` as the input model, and submitted to the SLURM
    scheduler on the academic cluster using
