@@ -2,9 +2,9 @@
 # Author: Bryce Carson <bcars268@mtroyal.ca>
 # URL: https://github.com/bryce-carson/APCD10Cr_Carson_2022
 #
-# MeeCarsonYeaman2021.R is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# APCD10Cr_mutations_analysis.R is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 #
-# MeeCarsonYeaman2021.R is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+# APCD10Cr_mutations_analysis.R is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
@@ -277,6 +277,19 @@ readFile <- function(fileName) {
   ## End of Function
   return(current_file)}
 
+# Calculate descriptive statistics on sojourn density for all output files (ten
+# of them) belonging to a given replicate. The files are mapped over, with each
+# file producing data according to calculateSojournDensity. These data points
+# are bound into a multi-row table by map_dfr, which is then summarized into a
+# single data point per variable. Essentially, every replicate file is processed
+# by calculateSojournDensity, and then summarized into a single summary
+# statistic for the replicates (per position).
+#
+# param: filenameVector [10] (length)
+# value: tibble [??? x 10] (row x col)
+#
+# Variables in the output dataframe:
+# position, meanDensity, minDensity, maxDensity, meanTime, minTime, maxTime, meanFrequency, minFrequency, maxFrequency
 doSojournWork <- function(filenameVector) {
 
   if(all(is.vector(filenameVector) == TRUE, length(filenameVector) == 10) == FALSE) {
