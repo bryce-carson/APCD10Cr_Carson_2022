@@ -6,7 +6,7 @@
 </div>
 
 # About this repository
-<a href="https://www.github.com/Bryce-Carson/APCD10Cr_Carson_2022">The <code>APCD10Cr_Carson_2022</code> repository</a> hosts a portion of the source code used in the production of data for a paper in preparation: *Mee, J.A., Carson, C., & Yeaman, S. (2023) Conditionally deleterious mutation load accumulates in genomic islands but can be purged with sufficient genotypic redundancy*.
+<a href="https://www.github.com/Bryce-Carson/APCD10Cr_Carson_2022">The <code>APCD10Cr_Carson_2022</code> repository</a> hosts a portion of the source code used in the production of data for [*Mee, J.A., Carson, C., & Yeaman, S. (2023) Conditionally deleterious mutation load accumulates in genomic islands but can be purged with sufficient genotypic redundancy*](https://doi.org/10.1086/730186).
 
 APCD10Cr is an abbreviation for: Antagonistic Pleiotropy & Conditionally Deleterious Mutations (with ten chromosomes). This was the name I used internally while producing the code.
 
@@ -28,7 +28,10 @@ The code in this repository is archived on Zenodo. Follow the DOI badge link bel
 At the time of publication of the data to the Federated Research Data Repository (hereafter FRDR; <a href="https://www.frdr-dfdr.ca/">www.frdr-dfdr.ca</a>), the manuscript by Mee, Carson, & Yeaman describing this research is not published and is in preparation; a preprint manuscript will be published to BioRXiv when ready. The title for the BioRXiv manuscript in preparation is: Mee, J.A., Carson, C., & Yeaman, S. (2023) *Conditionally deleterious mutation load accumulates in genomic islands but can be purged with sufficient genotypic redundancy*. The researchers involved in this study are listed in the table below.
 
 <table>
-  <caption><b>Table 1:</b> The owner of this repository, Bryce Carson, is the sole author of the source code for the source files in this repository, and the sole author of the dataset linking to this repository from the FRDR [1]. Data published in the FRDR was created as a research output during the method of study for a forthcoming publication by the data author and others. When the manuscript is in a pre-print archive or officially published, this repository will be updated to reflect that. If you have questions related to the data published in the FRDR or this GitHub repository, contact Bryce Carson (<a href="mailto:bcars268@mtroyal.ca">bcars268@mtroyal.ca</a>).</caption>
+  <caption><b>Table 1:</b>
+      The owner of this repository, Bryce Carson, is the sole author of the source code for the source files in this repository, and the sole author of the dataset linking to this repository from the FRDR [1].
+      Data published in the FRDR was created as a research output during the method of study for a publication by the data author and others [3].
+      If you have questions related to the data published in the FRDR or this GitHub repository, contact Bryce Carson (<a href="mailto:bcars268@mtroyal.ca">bcars268@mtroyal.ca</a>).</caption>
   <tr><th>Contributor</th><th>ORCID iD</th><th>Contributor role and details</th><th>Affiliation</th></tr>
   
   <tr class="table-row">
@@ -364,3 +367,5 @@ Nous remercions le Conseil de recherches en sciences naturelles et en génie du 
 [2] Benjamin C Haller, Philipp W Messer,  SLiM 3: Forward Genetic Simulations Beyond the Wright–Fisher Model, **Molecular Biology and Evolution**, Volume 36, Issue 3, March 2019, Pages 632–637, <a href="https://doi.org/10.1093/molbev/msy228" data-google-interstitial="false">https://doi.org/10.1093/molbev/msy228</a>
 
 [line-248]: https://github.com/bryce-carson/APCD10Cr_Carson_2022/blob/bc76e7a0bab64cac302e70335937e037e7ffa1b0/APCD10Cr_model_20211222.slim#L248-L266
+
+[3] [](https://doi.org/10.1086/730186)
